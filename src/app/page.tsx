@@ -28,6 +28,8 @@ import {
   Check,
 } from "lucide-react";
 
+import { AuthGuard, useAuth } from "../components/AuthGuard";
+
 interface SubdomainHealth {
   domain: string;
   type: string;
@@ -96,6 +98,15 @@ const INITIAL_FALLBACK_MESSAGES: InboundEmail[] = [
 ];
 
 export default function EmailAppPage() {
+  return (
+    <AuthGuard>
+      <EmailAppContent />
+    </AuthGuard>
+  );
+}
+
+function EmailAppContent() {
+  const { auth, logout } = useAuth();
   const [activeTab, setActiveTab] = useState<"inbox" | "sent" | "infrastructure">("inbox");
   const [messages, setMessages] = useState<InboundEmail[]>(INITIAL_FALLBACK_MESSAGES);
   const [selectedMessage, setSelectedMessage] = useState<InboundEmail>(INITIAL_FALLBACK_MESSAGES[0]);
@@ -116,7 +127,7 @@ export default function EmailAppPage() {
   const [isSending, setIsSending] = useState(false);
   const [sendSuccess, setSendSuccess] = useState<string | null>(null);
 
-  // Load saved credentials from localStorage on client
+  // Load saved credentials from localStorage on client, default to authenticated SSO user email
   useEffect(() => {
     try {
       const stored = localStorage.getItem("bp_titan_auth");
@@ -125,9 +136,11 @@ export default function EmailAppPage() {
         setUserEmail(email);
         setUserPassword(password);
         setSavedCredentials(true);
+      } else if (auth?.user?.email) {
+        setUserEmail(auth.user.email);
       }
     } catch {}
-  }, []);
+  }, [auth]);
 
   const handleSaveCredentials = (e: React.FormEvent) => {
     e.preventDefault();
@@ -231,12 +244,13 @@ export default function EmailAppPage() {
       appName="Mail"
       appSubtitle="Basepoint Operations"
       title="Titan Webmail & Transactional Email"
-      subtitle={savedCredentials ? `Connected: ${userEmail}` : "Titan Mail Interface"}
+      subtitle={savedCredentials ? `Mailbox: ${userEmail}` : "Titan Webmail Portal"}
       currentUser={{
-        name: userEmail ? userEmail.split("@")[0] : "Basepoint Admin",
-        email: userEmail || "admin@basepoint.ma",
-        role: "Mail Administrator",
+        name: auth?.profile?.display_name || (auth?.user?.email ? auth.user.email.split("@")[0] : "Basepoint User"),
+        email: auth?.user?.email || userEmail || "admin@basepoint.ma",
+        role: auth?.roles?.[0] || "Authorized Member",
       }}
+      onLogout={logout}
       navItems={[
         {
           id: "inbox",
