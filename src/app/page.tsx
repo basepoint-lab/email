@@ -26,6 +26,10 @@ import {
   AlertCircle,
   KeyRound,
   Check,
+  Radio,
+  Bell,
+  Volume2,
+  Clock,
 } from "lucide-react";
 
 import { AuthGuard, useAuth } from "../components/AuthGuard";
@@ -97,6 +101,32 @@ const INITIAL_FALLBACK_MESSAGES: InboundEmail[] = [
   },
 ];
 
+/**
+ * Elegant synthesized Web Audio notification chime (F5 -> A5)
+ * Pure client-side zero-asset sound with harmonic fade.
+ */
+function playNotificationChime() {
+  if (typeof window === "undefined") return;
+  try {
+    const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(698.46, ctx.currentTime); // F5
+    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.12); // A5
+    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.35);
+  } catch {
+    // Audio context may be restricted before interaction
+  }
+}
+
 export default function EmailAppPage() {
   return (
     <AuthGuard>
@@ -119,6 +149,17 @@ function EmailAppContent() {
   const [isCredentialsModalOpen, setIsCredentialsModalOpen] = useState(false);
   const [savedCredentials, setSavedCredentials] = useState(false);
 
+  // Active listener & sync state
+  const [latestUid, setLatestUid] = useState<number>(0);
+  const [lastSyncedAt, setLastSyncedAt] = useState<Date | null>(null);
+  const [isSyncing, setIsSyncing] = useState<boolean>(false);
+  const [newMailNotification, setNewMailNotification] = useState<{
+    count: number;
+    latestSender: string;
+    latestSubject: string;
+    msg: InboundEmail;
+  } | null>(null);
+
   // Compose modal state
   const [isComposeOpen, setIsComposeOpen] = useState(false);
   const [composeTo, setComposeTo] = useState("");
@@ -127,7 +168,7 @@ function EmailAppContent() {
   const [isSending, setIsSending] = useState(false);
   const [sendSuccess, setSendSuccess] = useState<string | null>(null);
 
-  // Load saved credentials from localStorage or assigned account
+  // Load saved credentials from localStorage or assigned account & auto-fetch
   useEffect(() => {
     try {
       const stored = localStorage.getItem("bp_titan_auth");
@@ -136,6 +177,8 @@ function EmailAppContent() {
         setUserEmail(email);
         setUserPassword(password);
         setSavedCredentials(true);
+        // Automatically fetch inbox on mount when stored credentials exist
+        fetchInbox(email, password);
       } else if (assignedAccount?.email) {
         setUserEmail(assignedAccount.email);
       } else if (auth?.user?.email) {
@@ -143,6 +186,82 @@ function EmailAppContent() {
       }
     } catch {}
   }, [auth, assignedAccount]);
+
+  // Active background listener: checks for new emails every 15 seconds
+  useEffect(() => {
+    if (!userEmail || !userPassword) return;
+
+    let isSubscribed = true;
+
+    const checkUpdates = async () => {
+      // Don't poll if already full-loading or sync is already in flight
+      if (isLoading || isSyncing) return;
+
+      setIsSyncing(true);
+      try {
+        const url = latestUid > 0
+          ? `https://api.basepoint.ma/v1/mail/inbox/updates?lastUid=${latestUid}`
+          : `https://api.basepoint.ma/v1/mail/inbox?limit=25`;
+
+        const res = await fetch(url, {
+          headers: {
+            "x-mail-user": userEmail,
+            "x-mail-password": userPassword,
+          },
+        });
+
+        if (!res.ok) return;
+
+        const data = await res.json();
+        if (!isSubscribed) return;
+
+        setLastSyncedAt(new Date());
+
+        if (latestUid > 0 && data.hasNew && data.messages && data.messages.length > 0) {
+          // New messages detected by listener!
+          const incoming: InboundEmail[] = data.messages;
+          const maxUid = data.latestUid || Math.max(...incoming.map((m) => m.uid || 0), latestUid);
+          setLatestUid(maxUid);
+
+          // Prepend new messages and deduplicate by UID
+          setMessages((prev) => {
+            const existingUids = new Set(prev.map((m) => m.uid));
+            const fresh = incoming.filter((m) => !existingUids.has(m.uid));
+            return [...fresh, ...prev];
+          });
+
+          // Play pleasant audio chime
+          playNotificationChime();
+
+          // Show floating incoming email alert
+          setNewMailNotification({
+            count: incoming.length,
+            latestSender: incoming[0].from,
+            latestSubject: incoming[0].subject,
+            msg: incoming[0],
+          });
+        } else if (latestUid === 0 && data.messages && data.messages.length > 0) {
+          // Initial baseline sync
+          setMessages(data.messages);
+          setSelectedMessage(data.messages[0]);
+          const maxUid = Math.max(...data.messages.map((m: InboundEmail) => m.uid || 0), 0);
+          setLatestUid(maxUid);
+        }
+      } catch (e) {
+        // Silent catch for background polling
+      } finally {
+        if (isSubscribed) {
+          setIsSyncing(false);
+        }
+      }
+    };
+
+    const intervalId = setInterval(checkUpdates, 15000);
+    return () => {
+      isSubscribed = false;
+      clearInterval(intervalId);
+    };
+  }, [userEmail, userPassword, latestUid, isLoading, isSyncing]);
 
   const handleSaveCredentials = (e: React.FormEvent) => {
     e.preventDefault();
@@ -167,7 +286,7 @@ function EmailAppContent() {
     setIsLoading(true);
     setErrorMsg(null);
     try {
-      const res = await fetch("https://api.basepoint.ma/v1/mail/inbox", {
+      const res = await fetch("https://api.basepoint.ma/v1/mail/inbox?limit=30", {
         headers: {
           "x-mail-user": credEmail,
           "x-mail-password": credPass,
@@ -183,12 +302,25 @@ function EmailAppContent() {
       if (data.messages && data.messages.length > 0) {
         setMessages(data.messages);
         setSelectedMessage(data.messages[0]);
+        const maxUid = Math.max(...data.messages.map((m: InboundEmail) => m.uid || 0), 0);
+        setLatestUid(maxUid);
       }
+      setLastSyncedAt(new Date());
     } catch (err: any) {
       console.warn("IMAP live fetch fallback:", err.message);
       setErrorMsg(err.message);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleSelectMessage = (msg: InboundEmail) => {
+    setSelectedMessage(msg);
+    if (msg.unread) {
+      // Mark as read locally
+      setMessages((prev) =>
+        prev.map((m) => (m.uid === msg.uid ? { ...m, unread: false } : m))
+      );
     }
   };
 
@@ -264,7 +396,7 @@ function EmailAppContent() {
           id: "inbox",
           label: "Inbox",
           icon: <Inbox className="w-4 h-4" />,
-          count: messages.length,
+          count: messages.filter((m) => m.unread).length > 0 ? messages.filter((m) => m.unread).length : messages.length,
           active: activeTab === "inbox",
           onClick: () => setActiveTab("inbox"),
         },
@@ -285,6 +417,30 @@ function EmailAppContent() {
       ]}
       actionsSlot={
         <div className="flex items-center gap-2">
+          {/* Reactive Listener Status Indicator */}
+          <div className="hidden sm:inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-mono border border-[#E2DDD0] bg-[#F7F5EC] text-[#003c2d]">
+            <span className="relative flex h-2 w-2">
+              <span
+                className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                  isSyncing ? "bg-amber-400" : "bg-[#BCF63C]"
+                }`}
+              />
+              <span
+                className={`relative inline-flex rounded-full h-2 w-2 ${
+                  isSyncing ? "bg-amber-500" : "bg-[#003c2d]"
+                }`}
+              />
+            </span>
+            <span className="font-bold text-[11px]">
+              {isSyncing ? "Syncing..." : "Live Sync"}
+            </span>
+            <span className="text-[10px] text-[#5e665d] hidden md:inline">
+              {lastSyncedAt
+                ? lastSyncedAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+                : "15s"}
+            </span>
+          </div>
+
           <button
             onClick={() => setIsComposeOpen(true)}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#003c2d] bg-[#BCF63C] hover:bg-[#a6db32] transition-colors shadow-xs"
@@ -313,6 +469,48 @@ function EmailAppContent() {
     >
       <div className="py-6">
         <Container size="full">
+          {/* Real-time incoming email notification toast */}
+          {newMailNotification && (
+            <div className="mb-4 p-4 rounded-xl bg-[#003c2d] text-white border-2 border-[#BCF63C] shadow-lg flex items-center justify-between transition-all">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-[#BCF63C]/20 border border-[#BCF63C] flex items-center justify-center shrink-0">
+                  <Mail className="w-5 h-5 text-[#BCF63C]" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold text-[#BCF63C] uppercase tracking-wider font-mono">
+                      ● Incoming Message Received ({newMailNotification.count} New)
+                    </span>
+                    <span className="text-[10px] text-[#A3FB60]/80 font-mono">Real-time IMAP Listener</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white">
+                    {newMailNotification.latestSubject}
+                  </div>
+                  <div className="text-xs text-[#E2DDD0]/80">
+                    From: {newMailNotification.latestSender}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    handleSelectMessage(newMailNotification.msg);
+                    setNewMailNotification(null);
+                  }}
+                  className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#BCF63C] text-[#003c2d] hover:bg-[#a6db32] transition-colors"
+                >
+                  View Email
+                </button>
+                <button
+                  onClick={() => setNewMailNotification(null)}
+                  className="p-1.5 text-[#E2DDD0] hover:text-white rounded-lg transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Error / Alert banner if connection error */}
           {errorMsg && (
             <div className="mb-4 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center justify-between">
@@ -380,11 +578,11 @@ function EmailAppContent() {
                 </div>
                 <button
                   onClick={() => fetchInbox()}
-                  disabled={isLoading}
-                  title="Refresh Inbox"
+                  disabled={isLoading || isSyncing}
+                  title="Check Mail (IMAP)"
                   className="p-1.5 text-[#5e665d] hover:text-[#003c2d] rounded-lg border border-[#E2DDD0] transition-colors"
                 >
-                  <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin text-[#003c2d]" : ""}`} />
+                  <RefreshCw className={`w-3.5 h-3.5 ${isLoading || isSyncing ? "animate-spin text-[#003c2d]" : ""}`} />
                 </button>
               </div>
 
@@ -392,7 +590,7 @@ function EmailAppContent() {
                 {messages.map((msg) => (
                   <div
                     key={msg.uid}
-                    onClick={() => setSelectedMessage(msg)}
+                    onClick={() => handleSelectMessage(msg)}
                     className={`p-4 cursor-pointer transition-colors ${
                       selectedMessage?.uid === msg.uid
                         ? "bg-[#F7F5EC]"
