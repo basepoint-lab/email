@@ -106,7 +106,7 @@ export default function EmailAppPage() {
 }
 
 function EmailAppContent() {
-  const { auth, logout } = useAuth();
+  const { auth, assignedAccount, logout } = useAuth();
   const [activeTab, setActiveTab] = useState<"inbox" | "sent" | "infrastructure">("inbox");
   const [messages, setMessages] = useState<InboundEmail[]>(INITIAL_FALLBACK_MESSAGES);
   const [selectedMessage, setSelectedMessage] = useState<InboundEmail>(INITIAL_FALLBACK_MESSAGES[0]);
@@ -127,7 +127,7 @@ function EmailAppContent() {
   const [isSending, setIsSending] = useState(false);
   const [sendSuccess, setSendSuccess] = useState<string | null>(null);
 
-  // Load saved credentials from localStorage on client, default to authenticated SSO user email
+  // Load saved credentials from localStorage or assigned account
   useEffect(() => {
     try {
       const stored = localStorage.getItem("bp_titan_auth");
@@ -136,11 +136,13 @@ function EmailAppContent() {
         setUserEmail(email);
         setUserPassword(password);
         setSavedCredentials(true);
+      } else if (assignedAccount?.email) {
+        setUserEmail(assignedAccount.email);
       } else if (auth?.user?.email) {
         setUserEmail(auth.user.email);
       }
     } catch {}
-  }, [auth]);
+  }, [auth, assignedAccount]);
 
   const handleSaveCredentials = (e: React.FormEvent) => {
     e.preventDefault();
@@ -244,10 +246,16 @@ function EmailAppContent() {
       appName="Mail"
       appSubtitle="Basepoint Operations"
       title="Titan Webmail & Transactional Email"
-      subtitle={savedCredentials ? `Mailbox: ${userEmail}` : "Titan Webmail Portal"}
+      subtitle={
+        assignedAccount
+          ? `Assigned Mailbox: ${assignedAccount.email} (${assignedAccount.name})`
+          : savedCredentials
+          ? `Mailbox: ${userEmail}`
+          : "Titan Webmail Portal"
+      }
       currentUser={{
         name: auth?.profile?.display_name || (auth?.user?.email ? auth.user.email.split("@")[0] : "Basepoint User"),
-        email: auth?.user?.email || userEmail || "admin@basepoint.ma",
+        email: assignedAccount?.email || auth?.user?.email || userEmail || "admin@basepoint.ma",
         role: auth?.roles?.[0] || "Authorized Member",
       }}
       onLogout={logout}
