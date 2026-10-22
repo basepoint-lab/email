@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   WorkspaceShell,
   Container,
@@ -20,6 +20,12 @@ import {
   Filter,
   Sparkles,
   ArrowUpRight,
+  PenSquare,
+  RefreshCw,
+  X,
+  AlertCircle,
+  KeyRound,
+  Check,
 } from "lucide-react";
 
 interface SubdomainHealth {
@@ -54,66 +60,195 @@ const EMAIL_SUBDOMAINS: SubdomainHealth[] = [
   },
 ];
 
-const MOCK_MESSAGES = [
+interface InboundEmail {
+  uid: number;
+  from: string;
+  to?: string;
+  subject: string;
+  date: string;
+  unread: boolean;
+  snippet?: string;
+  text?: string;
+  html?: string;
+}
+
+const INITIAL_FALLBACK_MESSAGES: InboundEmail[] = [
   {
-    id: "msg-1",
-    sender: "Basepoint System",
-    email: "notifications@send.basepoint.ma",
-    subject: "Resend Dedicated Sending Domain Verified: send.basepoint.ma",
-    time: "10:14 AM",
-    preview: "Your dedicated sending subdomain and return-path alignment have been successfully verified...",
-    tag: "Transactional",
+    uid: 101,
+    from: "Hostinger Titan Mail <support@titan.email>",
+    to: "admin@basepoint.ma",
+    subject: "Titan Business Mail Active on basepoint.ma",
+    date: new Date().toISOString(),
     unread: true,
+    snippet: "Titan mail routing (mx1.titan.email & mx2.titan.email) is fully authenticated with DKIM and SPF...",
+    text: "Your Hostinger Titan business email infrastructure is live. You can fetch and send messages directly through SMTP/IMAP protocols.",
   },
   {
-    id: "msg-2",
-    sender: "Hostinger Titan Mail",
-    email: "support@titan.email",
-    subject: "DNS Records Transition Completed (mx1.titan.email & mx2.titan.email)",
-    time: "09:30 AM",
-    preview: "Titan Business mail routing is now active for domain basepoint.ma with DKIM and SPF checks passing...",
-    tag: "System",
+    uid: 102,
+    from: "Resend Infrastructure <notifications@send.basepoint.ma>",
+    to: "admin@basepoint.ma",
+    subject: "Dedicated Sending Domain send.basepoint.ma Verified",
+    date: new Date(Date.now() - 3600000).toISOString(),
     unread: false,
-  },
-  {
-    id: "msg-3",
-    sender: "Security Operations",
-    email: "security@basepoint.ma",
-    subject: "DMARC Alignment Policy Active (p=none)",
-    time: "Yesterday",
-    preview: "DMARC TXT record _dmarc.basepoint.ma has been broadcast across the global DNS network...",
-    tag: "Security",
-    unread: false,
+    snippet: "Your dedicated sending subdomain and return-path alignment have been successfully verified...",
+    text: "DKIM, SPF and CNAME tracking are verified on basepoint.ma. Outbound emails are cryptographically signed.",
   },
 ];
 
 export default function EmailAppPage() {
   const [activeTab, setActiveTab] = useState<"inbox" | "sent" | "infrastructure">("inbox");
-  const [selectedMessage, setSelectedMessage] = useState(MOCK_MESSAGES[0]);
+  const [messages, setMessages] = useState<InboundEmail[]>(INITIAL_FALLBACK_MESSAGES);
+  const [selectedMessage, setSelectedMessage] = useState<InboundEmail>(INITIAL_FALLBACK_MESSAGES[0]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  // Mail account credentials state
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [isCredentialsModalOpen, setIsCredentialsModalOpen] = useState(false);
+  const [savedCredentials, setSavedCredentials] = useState(false);
+
+  // Compose modal state
+  const [isComposeOpen, setIsComposeOpen] = useState(false);
+  const [composeTo, setComposeTo] = useState("");
+  const [composeSubject, setComposeSubject] = useState("");
+  const [composeBody, setComposeBody] = useState("");
+  const [isSending, setIsSending] = useState(false);
+  const [sendSuccess, setSendSuccess] = useState<string | null>(null);
+
+  // Load saved credentials from localStorage on client
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("bp_titan_auth");
+      if (stored) {
+        const { email, password } = JSON.parse(stored);
+        setUserEmail(email);
+        setUserPassword(password);
+        setSavedCredentials(true);
+      }
+    } catch {}
+  }, []);
+
+  const handleSaveCredentials = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!userEmail || !userPassword) return;
+    try {
+      localStorage.setItem("bp_titan_auth", JSON.stringify({ email: userEmail, password: userPassword }));
+      setSavedCredentials(true);
+      setIsCredentialsModalOpen(false);
+      fetchInbox(userEmail, userPassword);
+    } catch {}
+  };
+
+  const fetchInbox = async (email?: string, password?: string) => {
+    const credEmail = email || userEmail;
+    const credPass = password || userPassword;
+
+    if (!credEmail || !credPass) {
+      setIsCredentialsModalOpen(true);
+      return;
+    }
+
+    setIsLoading(true);
+    setErrorMsg(null);
+    try {
+      const res = await fetch("https://api.basepoint.ma/v1/mail/inbox", {
+        headers: {
+          "x-mail-user": credEmail,
+          "x-mail-password": credPass,
+        },
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `Failed to fetch emails (HTTP ${res.status})`);
+      }
+
+      const data = await res.json();
+      if (data.messages && data.messages.length > 0) {
+        setMessages(data.messages);
+        setSelectedMessage(data.messages[0]);
+      }
+    } catch (err: any) {
+      console.warn("IMAP live fetch fallback:", err.message);
+      setErrorMsg(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSendEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!composeTo || !composeSubject || !composeBody) return;
+
+    if (!userEmail || !userPassword) {
+      setIsCredentialsModalOpen(true);
+      return;
+    }
+
+    setIsSending(true);
+    setSendSuccess(null);
+    setErrorMsg(null);
+
+    try {
+      const res = await fetch("https://api.basepoint.ma/v1/mail/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-mail-user": userEmail,
+          "x-mail-password": userPassword,
+        },
+        body: JSON.stringify({
+          to: composeTo,
+          subject: composeSubject,
+          text: composeBody,
+          from: userEmail,
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || "Failed to deliver email through Titan SMTP.");
+      }
+
+      setSendSuccess("Email dispatched successfully via Titan SMTP!");
+      setTimeout(() => {
+        setIsComposeOpen(false);
+        setComposeTo("");
+        setComposeSubject("");
+        setComposeBody("");
+        setSendSuccess(null);
+      }, 1500);
+    } catch (err: any) {
+      setErrorMsg(err.message);
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   return (
     <WorkspaceShell
       appName="Mail"
       appSubtitle="Basepoint Operations"
-      title="Email Operations Center"
-      subtitle="Unified Titan Webmail & Resend Outbound Infrastructure"
+      title="Titan Webmail & Transactional Email"
+      subtitle={savedCredentials ? `Connected: ${userEmail}` : "Titan Mail Interface"}
       currentUser={{
-        name: "Basepoint Admin",
-        email: "admin@basepoint.ma",
-        role: "Workspace Administrator",
+        name: userEmail ? userEmail.split("@")[0] : "Basepoint Admin",
+        email: userEmail || "admin@basepoint.ma",
+        role: "Mail Administrator",
       }}
       navItems={[
         {
           id: "inbox",
           label: "Inbox",
           icon: <Inbox className="w-4 h-4" />,
-          count: 3,
+          count: messages.length,
           active: activeTab === "inbox",
           onClick: () => setActiveTab("inbox"),
         },
         {
           id: "sent",
-          label: "Outbox & Sent",
+          label: "Sent Items",
           icon: <SendHorizontal className="w-4 h-4" />,
           active: activeTab === "sent",
           onClick: () => setActiveTab("sent"),
@@ -128,13 +263,27 @@ export default function EmailAppPage() {
       ]}
       actionsSlot={
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => setIsComposeOpen(true)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#003c2d] bg-[#BCF63C] hover:bg-[#a6db32] transition-colors shadow-xs"
+          >
+            <PenSquare className="w-3.5 h-3.5 text-[#003c2d]" />
+            <span>New Message</span>
+          </button>
+          <button
+            onClick={() => setIsCredentialsModalOpen(true)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#003c2d] bg-[#F7F5EC] hover:bg-[#E2DDD0]/60 transition-colors border border-[#E2DDD0]"
+          >
+            <KeyRound className="w-3.5 h-3.5" />
+            <span>{savedCredentials ? "Account Settings" : "Connect Titan"}</span>
+          </button>
           <a
             href="https://mail.hostinger.com"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-[#003c2d] hover:bg-[#00543f] transition-all shadow-sm"
           >
-            <span>Open Titan Webmail</span>
+            <span>Titan Webmail</span>
             <ExternalLink className="w-3.5 h-3.5 text-[#BCF63C]" />
           </a>
         </div>
@@ -142,6 +291,22 @@ export default function EmailAppPage() {
     >
       <div className="py-6">
         <Container size="full">
+          {/* Error / Alert banner if connection error */}
+          {errorMsg && (
+            <div className="mb-4 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+                <span>{errorMsg}</span>
+              </div>
+              <button
+                onClick={() => setErrorMsg(null)}
+                className="text-amber-700 hover:text-amber-900 p-1"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
           {/* Subdomains Infrastructure Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {EMAIL_SUBDOMAINS.map((sub) => (
@@ -187,35 +352,49 @@ export default function EmailAppPage() {
                   <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#5e665d]" />
                   <input
                     type="text"
-                    placeholder="Search messages..."
+                    placeholder="Search inbox..."
                     className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
                   />
                 </div>
-                <button className="p-1.5 text-[#5e665d] hover:text-[#003c2d] rounded-lg border border-[#E2DDD0]">
-                  <Filter className="w-3.5 h-3.5" />
+                <button
+                  onClick={() => fetchInbox()}
+                  disabled={isLoading}
+                  title="Refresh Inbox"
+                  className="p-1.5 text-[#5e665d] hover:text-[#003c2d] rounded-lg border border-[#E2DDD0] transition-colors"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin text-[#003c2d]" : ""}`} />
                 </button>
               </div>
 
               <div className="flex-1 overflow-y-auto divide-y divide-[#E2DDD0]/60">
-                {MOCK_MESSAGES.map((msg) => (
+                {messages.map((msg) => (
                   <div
-                    key={msg.id}
+                    key={msg.uid}
                     onClick={() => setSelectedMessage(msg)}
                     className={`p-4 cursor-pointer transition-colors ${
-                      selectedMessage.id === msg.id
+                      selectedMessage?.uid === msg.uid
                         ? "bg-[#F7F5EC]"
                         : "hover:bg-[#F7F5EC]/50 bg-white"
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-bold text-[#003c2d] truncate">{msg.sender}</span>
-                      <span className="text-[10px] text-[#5e665d] font-mono">{msg.time}</span>
+                      <span className="text-xs font-bold text-[#003c2d] truncate">{msg.from}</span>
+                      <span className="text-[10px] text-[#5e665d] font-mono">
+                        {new Date(msg.date).toLocaleDateString([], { month: "short", day: "numeric" })}
+                      </span>
                     </div>
                     <h4 className="text-xs font-semibold text-[#003c2d] mb-1 line-clamp-1">{msg.subject}</h4>
-                    <p className="text-[11px] text-[#5e665d] line-clamp-2 leading-relaxed">{msg.preview}</p>
+                    <p className="text-[11px] text-[#5e665d] line-clamp-2 leading-relaxed">
+                      {msg.snippet || msg.text || "No preview available"}
+                    </p>
                     <div className="mt-2 flex items-center gap-1.5">
-                      <span className="text-[9px] font-semibold px-2 py-0.5 rounded bg-[#E2DDD0]/60 text-[#003c2d]">
-                        {msg.tag}
+                      {msg.unread && (
+                        <span className="text-[9px] font-semibold px-2 py-0.5 rounded bg-[#BCF63C] text-[#003c2d]">
+                          NEW
+                        </span>
+                      )}
+                      <span className="text-[9px] font-mono text-[#5e665d]">
+                        IMAP ID #{msg.uid}
                       </span>
                     </div>
                   </div>
@@ -225,73 +404,208 @@ export default function EmailAppPage() {
 
             {/* Message Detail / Preview */}
             <div className="lg:col-span-7 p-6 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between pb-4 border-b border-[#E2DDD0] mb-4">
-                  <div>
-                    <h2 className="text-lg font-bold text-[#003c2d] mb-1">{selectedMessage.subject}</h2>
-                    <div className="flex items-center gap-2 text-xs text-[#5e665d]">
-                      <span>From: <strong className="text-[#003c2d]">{selectedMessage.sender}</strong></span>
-                      <span className="font-mono text-[11px]">({selectedMessage.email})</span>
+              {selectedMessage ? (
+                <div>
+                  <div className="flex items-center justify-between pb-4 border-b border-[#E2DDD0] mb-4">
+                    <div>
+                      <h2 className="text-lg font-bold text-[#003c2d] mb-1">{selectedMessage.subject}</h2>
+                      <div className="flex items-center gap-2 text-xs text-[#5e665d]">
+                        <span>From: <strong className="text-[#003c2d]">{selectedMessage.from}</strong></span>
+                        {selectedMessage.to && <span>To: {selectedMessage.to}</span>}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <button className="p-2 text-[#5e665d] hover:text-[#003c2d] rounded-lg hover:bg-[#F7F5EC]">
+                        <Archive className="w-4 h-4" />
+                      </button>
+                      <button className="p-2 text-[#5e665d] hover:text-[#003c2d] rounded-lg hover:bg-[#F7F5EC]">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <button className="p-2 text-[#5e665d] hover:text-[#003c2d] rounded-lg hover:bg-[#F7F5EC]">
-                      <Archive className="w-4 h-4" />
-                    </button>
-                    <button className="p-2 text-[#5e665d] hover:text-[#003c2d] rounded-lg hover:bg-[#F7F5EC]">
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+
+                  <div className="text-sm text-[#003c2d] leading-relaxed space-y-4">
+                    {selectedMessage.html ? (
+                      <div
+                        className="prose prose-sm max-w-none text-xs"
+                        dangerouslySetInnerHTML={{ __html: selectedMessage.html }}
+                      />
+                    ) : (
+                      <div className="whitespace-pre-wrap font-sans text-xs text-[#003c2d] leading-relaxed">
+                        {selectedMessage.text || selectedMessage.snippet}
+                      </div>
+                    )}
                   </div>
                 </div>
-
-                <div className="text-sm text-[#003c2d] leading-relaxed space-y-4">
-                  <p>
-                    This is an automated operational advisory from the Basepoint Email Cluster.
-                  </p>
-                  <div className="p-4 rounded-xl bg-[#F7F5EC] border border-[#E2DDD0] font-mono text-xs text-[#003c2d] space-y-1">
-                    <div>Status: <span className="text-[#00543f] font-bold">PROVISIONED & VERIFIED</span></div>
-                    <div>Domain: basepoint.ma</div>
-                    <div>Sending Subdomain: send.basepoint.ma</div>
-                    <div>Return-Path: bounces.send.basepoint.ma</div>
-                  </div>
-                  <p>
-                    All outgoing emails dispatched through the Central Hub API (<code className="bg-[#E2DDD0]/50 px-1 py-0.5 rounded text-xs font-mono">api.basepoint.ma</code>) utilize our authenticated Resend SDK. Outbound traffic is cryptographically signed via DKIM and tracked through <code className="bg-[#E2DDD0]/50 px-1 py-0.5 rounded text-xs font-mono">links.send.basepoint.ma</code>.
-                  </p>
-
-                  <div className="mt-6 p-4 rounded-xl bg-[#001a13] text-white">
-                    <div className="flex items-center gap-2 mb-2 text-[#BCF63C] text-xs font-mono">
-                      <Sparkles className="w-4 h-4" />
-                      <span>Ready in @basepoint-api:</span>
-                    </div>
-                    <pre className="text-xs font-mono text-gray-300 overflow-x-auto p-2 bg-black/40 rounded-lg">
-{`import { sendEmail } from "@/lib/resend";
-
-await sendEmail({
-  to: "user@example.com",
-  subject: "Welcome to Basepoint",
-  html: "<p>Your workspace is ready.</p>",
-});`}
-                    </pre>
-                  </div>
+              ) : (
+                <div className="flex items-center justify-center h-full text-xs text-[#5e665d]">
+                  Select an email to view contents.
                 </div>
-              </div>
+              )}
 
               <div className="pt-6 border-t border-[#E2DDD0] flex items-center justify-between">
-                <span className="text-xs text-[#5e665d] font-mono">Active Engines: Titan Webmail + Resend SDK</span>
-                <a
-                  href="https://mail.hostinger.com"
-                  target="_blank"
-                  rel="noreferrer"
+                <span className="text-xs text-[#5e665d] font-mono">
+                  Titan IMAP: imap.titan.email (993) | SMTP: smtp.titan.email (465)
+                </span>
+                <button
+                  onClick={() => setIsComposeOpen(true)}
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[#003c2d] hover:text-[#00543f]"
                 >
-                  <span>Launch Titan Webmail</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
+                  <PenSquare className="w-3.5 h-3.5" />
+                  <span>Send Reply</span>
+                </button>
               </div>
             </div>
           </div>
         </Container>
       </div>
+
+      {/* Connect Titan Account Modal */}
+      {isCredentialsModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 border border-[#E2DDD0] shadow-xl">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <KeyRound className="w-5 h-5 text-[#003c2d]" />
+                <h3 className="text-base font-bold text-[#003c2d]">Connect Titan Email Account</h3>
+              </div>
+              <button
+                onClick={() => setIsCredentialsModalOpen(false)}
+                className="p-1 rounded-lg text-[#5e665d] hover:text-[#003c2d]"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <p className="text-xs text-[#5e665d] mb-4">
+              Enter your Hostinger Titan mailbox credentials. Emails are fetched securely via IMAP and sent via SMTP.
+            </p>
+            <form onSubmit={handleSaveCredentials} className="space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-[#003c2d] mb-1">Email Address</label>
+                <input
+                  type="email"
+                  required
+                  placeholder="contact@basepoint.ma"
+                  value={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-[#003c2d] mb-1">Password</label>
+                <input
+                  type="password"
+                  required
+                  placeholder="Your mailbox password"
+                  value={userPassword}
+                  onChange={(e) => setUserPassword(e.target.value)}
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
+                />
+              </div>
+              <div className="pt-2 flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsCredentialsModalOpen(false)}
+                  className="px-3 py-2 rounded-xl text-xs font-semibold text-[#5e665d] hover:bg-[#F7F5EC]"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#003c2d] hover:bg-[#00543f] shadow-xs"
+                >
+                  Save & Connect
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Compose Message Modal */}
+      {isComposeOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 border border-[#E2DDD0] shadow-xl">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <PenSquare className="w-5 h-5 text-[#003c2d]" />
+                <h3 className="text-base font-bold text-[#003c2d]">New Email (Titan SMTP)</h3>
+              </div>
+              <button
+                onClick={() => setIsComposeOpen(false)}
+                className="p-1 rounded-lg text-[#5e665d] hover:text-[#003c2d]"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {sendSuccess && (
+              <div className="mb-4 p-3 rounded-xl bg-green-50 border border-green-200 text-green-900 text-xs flex items-center gap-2">
+                <Check className="w-4 h-4 text-green-600" />
+                <span>{sendSuccess}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSendEmail} className="space-y-3">
+              <div>
+                <label className="block text-xs font-medium text-[#003c2d] mb-1">To</label>
+                <input
+                  type="email"
+                  required
+                  placeholder="recipient@example.com"
+                  value={composeTo}
+                  onChange={(e) => setComposeTo(e.target.value)}
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-[#003c2d] mb-1">Subject</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Subject line"
+                  value={composeSubject}
+                  onChange={(e) => setComposeSubject(e.target.value)}
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-[#003c2d] mb-1">Message Body</label>
+                <textarea
+                  required
+                  rows={6}
+                  placeholder="Write your email message here..."
+                  value={composeBody}
+                  onChange={(e) => setComposeBody(e.target.value)}
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
+                />
+              </div>
+              <div className="pt-3 flex items-center justify-between border-t border-[#E2DDD0]">
+                <span className="text-[10px] text-[#5e665d] font-mono">
+                  From: {userEmail || "Connect Titan account"}
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsComposeOpen(false)}
+                    className="px-3 py-2 rounded-xl text-xs font-semibold text-[#5e665d] hover:bg-[#F7F5EC]"
+                  >
+                    Discard
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSending}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#003c2d] hover:bg-[#00543f] shadow-xs"
+                  >
+                    <Send className="w-3.5 h-3.5 text-[#BCF63C]" />
+                    <span>{isSending ? "Sending..." : "Send Message"}</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </WorkspaceShell>
   );
 }
