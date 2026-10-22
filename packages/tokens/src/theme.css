@@ -1,0 +1,49 @@
+/**
+ * Basepoint Design Tokens - Tailwind CSS v4 Theme
+ * Import into your Tailwind v4 CSS file:
+ *   @import "@basepoint-lab/tokens/theme.css";
+ */
+
+@theme {
+  --color-pine: #003c2d;
+  --color-pine-deep: #00271d;
+  --color-pine-dark: #001a13;
+  --color-pine-light: #00543f;
+  
+  --color-lime: #BCF63C;
+  --color-lime-hover: #a6db32;
+  --color-spring: #A3FB60;
+
+  --color-canvas: #F7F5EC;
+  --color-card: #FFFFFF;
+  --color-subtle: #E2DDD0;
+  --color-muted: #5e665d;
+
+  --color-dark-canvas: #001a13;
+  --color-dark-card: #00271d;
+
+  --font-spartan: 'League Spartan', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+
+  --shadow-xs: 0 1px 2px 0 rgba(0, 60, 45, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 60, 45, 0.08), 0 1px 2px -1px rgba(0, 60, 45, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(0, 60, 45, 0.08), 0 2px 4px -2px rgba(0, 60, 45, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 60, 45, 0.08), 0 4px 6px -4px rgba(0, 60, 45, 0.04);
+  --shadow-glow-lime: 0 0 25px rgba(188, 246, 60, 0.35);
+  --shadow-glow-pine: 0 10px 30px rgba(0, 60, 45, 0.18);
+
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}

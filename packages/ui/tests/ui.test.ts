@@ -1,0 +1,43 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import * as UI from "../dist/index.js";
+
+test("@basepoint-lab/ui - Exports all core component primitives and app elements", () => {
+  assert.equal(typeof UI.Button, "function", "Button must be a function");
+  assert.equal(typeof UI.Badge, "function", "Badge must be a function");
+  assert.equal(typeof UI.Card, "function", "Card must be a function");
+  assert.equal(typeof UI.CardHeader, "function", "CardHeader must be a function");
+  assert.equal(typeof UI.CardTitle, "function", "CardTitle must be a function");
+  assert.equal(typeof UI.CardDescription, "function", "CardDescription must be a function");
+  assert.equal(typeof UI.CardContent, "function", "CardContent must be a function");
+  assert.equal(typeof UI.CardFooter, "function", "CardFooter must be a function");
+  assert.equal(typeof UI.MetricCard, "function", "MetricCard must be a function");
+  assert.equal(typeof UI.RealmCard, "function", "RealmCard must be a function");
+  assert.equal(typeof UI.Input, "function", "Input must be a function");
+  assert.equal(typeof UI.SearchInput, "function", "SearchInput must be a function");
+  assert.equal(typeof UI.Textarea, "function", "Textarea must be a function");
+  assert.equal(typeof UI.Select, "function", "Select must be a function");
+  assert.equal(typeof UI.Checkbox, "function", "Checkbox must be a function");
+  assert.equal(typeof UI.Tabs, "function", "Tabs must be a function");
+  assert.equal(typeof UI.Modal, "function", "Modal must be a function");
+  assert.equal(typeof UI.Avatar, "function", "Avatar must be a function");
+  assert.equal(typeof UI.AvatarGroup, "function", "AvatarGroup must be a function");
+  assert.equal(typeof UI.ProgressBar, "function", "ProgressBar must be a function");
+  assert.equal(typeof UI.EmptyState, "function", "EmptyState must be a function");
+  // Components from apps
+  assert.equal(typeof UI.LanguageSwitcher, "function", "LanguageSwitcher must be a function");
+  assert.equal(typeof UI.AccountSwitcher, "function", "AccountSwitcher must be a function");
+  assert.equal(typeof UI.ToolCard, "function", "ToolCard must be a function");
+  assert.equal(typeof UI.Accordion, "function", "Accordion must be a function");
+  assert.equal(typeof UI.StarRating, "function", "StarRating must be a function");
+  assert.equal(typeof UI.AuthCard, "function", "AuthCard must be a function");
+  assert.equal(typeof UI.TestimonialCard, "function", "TestimonialCard must be a function");
+  assert.equal(typeof UI.Table, "function", "Table must be a function");
+  assert.equal(typeof UI.TableHeader, "function", "TableHeader must be a function");
+  assert.equal(typeof UI.TableBody, "function", "TableBody must be a function");
+  assert.equal(typeof UI.TableRow, "function", "TableRow must be a function");
+  assert.equal(typeof UI.TableCell, "function", "TableCell must be a function");
+  assert.equal(typeof UI.TableHead, "function", "TableHead must be a function");
+  assert.equal(typeof UI.StatCard, "function", "StatCard must be a function");
+  assert.equal(typeof UI.Alert, "function", "Alert must be a function");
+});

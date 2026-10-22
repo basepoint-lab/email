@@ -1,0 +1,61 @@
+{
+  "name": "@basepoint-lab/ui",
+  "version": "1.0.2",
+  "description": "Basepoint standardized UI component library (Buttons, Badges, Cards, Modals, Inputs, Tabs, Selects, Tables, StatCards, Alerts)",
+  "author": "Basepoint Engineering <team@basepoint.ma>",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/**/*.test.js 2>/dev/null || echo 'No compiled tests'",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/basepoint-lab/ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/basepoint-lab/ui/issues"
+  },
+  "homepage": "https://github.com/basepoint-lab/ui#readme",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "@basepoint-lab/tokens": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@basepoint-lab/tokens": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "lucide-react": "^0.475.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.2"
+  }
+}

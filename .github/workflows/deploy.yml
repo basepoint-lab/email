@@ -1,0 +1,80 @@
+name: Deploy Static Website to mail.basepoint.ma
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-mail-basepoint
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛎️ Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 📦 Install Dependencies
+        run: npm install
+
+      - name: 🏗️ Build Static Export
+        run: npm run build
+
+      - name: 🚀 Deploy to Hostinger (mail.basepoint.ma)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_SERVER || '153.92.6.148' }}
+          username: ${{ secrets.HOSTINGER_FTP_USERNAME || 'u524032726.mail.basepoint.ma' }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          port: 21
+          server-dir: ${{ secrets.HOSTINGER_FTP_DIR || './' }}
+          local-dir: ./out/
+          dangerous-clean-slate: true
+          exclude: |
+            **/.well-known/**
+            **/.git*
+
+      - name: 🩺 Verify Live Deployment
+        run: |
+          echo "Probing live deployment..."
+          sleep 5
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -L --max-time 15 "https://mail.basepoint.ma/" || true)
+          echo "HTTP Status for https://mail.basepoint.ma/: $HTTP_STATUS"
+          if [ "$HTTP_STATUS" = "200" ]; then
+            echo "✅ Production deployment is active and returning HTTP 200 OK!"
+          else
+            echo "ℹ️ Returned HTTP $HTTP_STATUS. If this is the initial deploy, allow 1-2 minutes for edge cache sync."
+          fi
+
+      - name: 🚨 Report Failure to Basepoint Central Monitoring
+        if: failure()
+        run: |
+          echo "Notifying Central API of workflow failure..."
+          curl -s -X POST "https://api.basepoint.ma/webhooks/github-actions" \
+            -H "Content-Type: application/json" \
+            -H "x-basepoint-webhook-secret: ${{ secrets.BASEPOINT_WEBHOOK_SECRET || 'basepoint-internal-telemetry-key' }}" \
+            -d "{
+              \"event\": \"workflow_run.failed\",
+              \"repository\": \"${{ github.repository }}\",
+              \"workflow\": \"${{ github.workflow }}\",
+              \"runId\": \"${{ github.run_id }}\",
+              \"runNumber\": ${{ github.run_number }},
+              \"actor\": \"${{ github.actor }}\",
+              \"branch\": \"${{ github.ref_name }}\",
+              \"commit\": \"${{ github.sha }}\",
+              \"step\": \"build-and-deploy\",
+              \"errorMessage\": \"Workflow execution failed in CI/CD build or Hostinger deployment step.\"
+            }" || true

@@ -1,0 +1,52 @@
+{
+  "name": "@basepoint-lab/tokens",
+  "version": "1.0.1",
+  "description": "Basepoint design tokens, color scales, typography, CSS variables, and Tailwind theme presets",
+  "author": "Basepoint Engineering <team@basepoint.ma>",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./preset": {
+      "types": "./dist/preset.d.ts",
+      "import": "./dist/preset.mjs",
+      "require": "./dist/preset.js"
+    },
+    "./css": "./dist/tokens.css",
+    "./tokens.css": "./dist/tokens.css",
+    "./theme.css": "./dist/theme.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && cp src/*.css dist/",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/tokens.test.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/basepoint-lab/tokens.git"
+  },
+  "bugs": {
+    "url": "https://github.com/basepoint-lab/tokens/issues"
+  },
+  "homepage": "https://github.com/basepoint-lab/tokens#readme",
+  "devDependencies": {
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.2"
+  }
+}
