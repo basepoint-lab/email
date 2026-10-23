@@ -8,63 +8,20 @@ import {
 import {
   Mail,
   Send,
-  Link2,
-  ShieldCheck,
-  CheckCircle2,
-  ExternalLink,
   Inbox,
   SendHorizontal,
   Trash2,
   Archive,
   Search,
   Filter,
-  Sparkles,
-  ArrowUpRight,
   PenSquare,
   RefreshCw,
   X,
   AlertCircle,
-  KeyRound,
   Check,
-  Radio,
-  Bell,
-  Volume2,
-  Clock,
 } from "lucide-react";
 
 import { AuthGuard, useAuth } from "../components/AuthGuard";
-
-interface SubdomainHealth {
-  domain: string;
-  type: string;
-  status: "active" | "ready" | "pending";
-  description: string;
-  records: string[];
-}
-
-const EMAIL_SUBDOMAINS: SubdomainHealth[] = [
-  {
-    domain: "mail.basepoint.ma",
-    type: "Web Application / Webmail",
-    status: "active",
-    description: "Hostinger Virtual Host workspace & secure webmail gateway.",
-    records: ["A -> 153.92.6.148", "AAAA -> 2a02:4780:a:1079:0:1f3c:1ad6:f", "SSL (Lifetime Active)"],
-  },
-  {
-    domain: "send.basepoint.ma",
-    type: "Dedicated Sending Domain",
-    status: "active",
-    description: "Authenticated Resend outbound transactional delivery channel.",
-    records: ["DKIM (resend._domainkey.send)", "Return-Path (bounces.send)", "Regional (rbounces.send)"],
-  },
-  {
-    domain: "links.send.basepoint.ma",
-    type: "Tracking Subdomain",
-    status: "active",
-    description: "Custom branded click and open analytics tracking domain.",
-    records: ["CNAME -> links2.resend-dns.com", "SSL Automated via Resend Edge"],
-  },
-];
 
 interface InboundEmail {
   uid: number;
@@ -81,23 +38,23 @@ interface InboundEmail {
 const INITIAL_FALLBACK_MESSAGES: InboundEmail[] = [
   {
     uid: 101,
-    from: "Hostinger Titan Mail <support@titan.email>",
+    from: "Basepoint System <admin@basepoint.ma>",
     to: "admin@basepoint.ma",
-    subject: "Titan Business Mail Active on basepoint.ma",
+    subject: "Welcome to Basepoint Mail",
     date: new Date().toISOString(),
     unread: true,
-    snippet: "Titan mail routing (mx1.titan.email & mx2.titan.email) is fully authenticated with DKIM and SPF...",
-    text: "Your Hostinger Titan business email infrastructure is live. You can fetch and send messages directly through SMTP/IMAP protocols.",
+    snippet: "Your corporate mailbox is configured and ready. You can receive and send messages directly through this portal...",
+    text: "Welcome to your Basepoint Mailbox. All communications are securely routed and synchronized in real time.",
   },
   {
     uid: 102,
-    from: "Resend Infrastructure <notifications@send.basepoint.ma>",
+    from: "Basepoint Operations <operations@basepoint.ma>",
     to: "admin@basepoint.ma",
-    subject: "Dedicated Sending Domain send.basepoint.ma Verified",
+    subject: "Workspace & Communications Active",
     date: new Date(Date.now() - 3600000).toISOString(),
     unread: false,
-    snippet: "Your dedicated sending subdomain and return-path alignment have been successfully verified...",
-    text: "DKIM, SPF and CNAME tracking are verified on basepoint.ma. Outbound emails are cryptographically signed.",
+    snippet: "Your workspace has been assigned. You have access to send and receive corporate messages...",
+    text: "Your corporate mailbox is fully authenticated and active.",
   },
 ];
 
@@ -137,7 +94,7 @@ export default function EmailAppPage() {
 
 function EmailAppContent() {
   const { auth, assignedAccount, logout } = useAuth();
-  const [activeTab, setActiveTab] = useState<"inbox" | "sent" | "infrastructure">("inbox");
+  const [activeTab, setActiveTab] = useState<"inbox" | "sent">("inbox");
   const [messages, setMessages] = useState<InboundEmail[]>(INITIAL_FALLBACK_MESSAGES);
   const [selectedMessage, setSelectedMessage] = useState<InboundEmail>(INITIAL_FALLBACK_MESSAGES[0]);
   const [isLoading, setIsLoading] = useState(false);
@@ -377,13 +334,13 @@ function EmailAppContent() {
     <WorkspaceShell
       appName="Mail"
       appSubtitle="Basepoint Operations"
-      title="Titan Webmail & Transactional Email"
+      title="Mail"
       subtitle={
         assignedAccount
-          ? `Assigned Mailbox: ${assignedAccount.email} (${assignedAccount.name})`
-          : savedCredentials
-          ? `Mailbox: ${userEmail}`
-          : "Titan Webmail Portal"
+          ? `${assignedAccount.name} (${assignedAccount.email})`
+          : userEmail
+          ? userEmail
+          : "Corporate Mailbox"
       }
       currentUser={{
         name: auth?.profile?.display_name || (auth?.user?.email ? auth.user.email.split("@")[0] : "Basepoint User"),
@@ -407,63 +364,16 @@ function EmailAppContent() {
           active: activeTab === "sent",
           onClick: () => setActiveTab("sent"),
         },
-        {
-          id: "infra",
-          label: "Infrastructure DNS",
-          icon: <ShieldCheck className="w-4 h-4" />,
-          active: activeTab === "infrastructure",
-          onClick: () => setActiveTab("infrastructure"),
-        },
       ]}
       actionsSlot={
         <div className="flex items-center gap-2">
-          {/* Reactive Listener Status Indicator */}
-          <div className="hidden sm:inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-mono border border-[#E2DDD0] bg-[#F7F5EC] text-[#003c2d]">
-            <span className="relative flex h-2 w-2">
-              <span
-                className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                  isSyncing ? "bg-amber-400" : "bg-[#BCF63C]"
-                }`}
-              />
-              <span
-                className={`relative inline-flex rounded-full h-2 w-2 ${
-                  isSyncing ? "bg-amber-500" : "bg-[#003c2d]"
-                }`}
-              />
-            </span>
-            <span className="font-bold text-[11px]">
-              {isSyncing ? "Syncing..." : "Live Sync"}
-            </span>
-            <span className="text-[10px] text-[#5e665d] hidden md:inline">
-              {lastSyncedAt
-                ? lastSyncedAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })
-                : "15s"}
-            </span>
-          </div>
-
           <button
             onClick={() => setIsComposeOpen(true)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#003c2d] bg-[#BCF63C] hover:bg-[#a6db32] transition-colors shadow-xs"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#003c2d] bg-[#BCF63C] hover:bg-[#a6db32] transition-colors shadow-xs"
           >
             <PenSquare className="w-3.5 h-3.5 text-[#003c2d]" />
             <span>New Message</span>
           </button>
-          <button
-            onClick={() => setIsCredentialsModalOpen(true)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#003c2d] bg-[#F7F5EC] hover:bg-[#E2DDD0]/60 transition-colors border border-[#E2DDD0]"
-          >
-            <KeyRound className="w-3.5 h-3.5" />
-            <span>{savedCredentials ? "Account Settings" : "Connect Titan"}</span>
-          </button>
-          <a
-            href="https://mail.hostinger.com"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-[#003c2d] hover:bg-[#00543f] transition-all shadow-sm"
-          >
-            <span>Titan Webmail</span>
-            <ExternalLink className="w-3.5 h-3.5 text-[#BCF63C]" />
-          </a>
         </div>
       }
     >
@@ -479,9 +389,8 @@ function EmailAppContent() {
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-bold text-[#BCF63C] uppercase tracking-wider font-mono">
-                      ● Incoming Message Received ({newMailNotification.count} New)
+                      ● New Message ({newMailNotification.count})
                     </span>
-                    <span className="text-[10px] text-[#A3FB60]/80 font-mono">Real-time IMAP Listener</span>
                   </div>
                   <div className="text-sm font-semibold text-white">
                     {newMailNotification.latestSubject}
@@ -527,42 +436,6 @@ function EmailAppContent() {
             </div>
           )}
 
-          {/* Subdomains Infrastructure Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            {EMAIL_SUBDOMAINS.map((sub) => (
-              <div
-                key={sub.domain}
-                className="p-4 rounded-xl bg-white border border-[#E2DDD0] shadow-xs hover:border-[#003c2d]/30 transition-all"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    {sub.domain.includes("mail") ? (
-                      <Mail className="w-4 h-4 text-[#003c2d]" />
-                    ) : sub.domain.includes("send") ? (
-                      <Send className="w-4 h-4 text-[#00543f]" />
-                    ) : (
-                      <Link2 className="w-4 h-4 text-[#003c2d]" />
-                    )}
-                    <span className="font-mono text-xs font-bold text-[#003c2d]">{sub.domain}</span>
-                  </div>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#00543f] bg-[#A3FB60]/20 px-2 py-0.5 rounded-md">
-                    <CheckCircle2 className="w-3 h-3 text-[#00543f]" />
-                    {sub.status.toUpperCase()}
-                  </span>
-                </div>
-                <p className="text-xs text-[#5e665d] mb-3 leading-relaxed">{sub.description}</p>
-                <div className="space-y-1 bg-[#F7F5EC] p-2.5 rounded-lg border border-[#E2DDD0]/60">
-                  {sub.records.map((rec, i) => (
-                    <div key={i} className="text-[10px] font-mono text-[#5e665d] truncate flex items-center gap-1">
-                      <span className="w-1 h-1 rounded-full bg-[#003c2d]" />
-                      {rec}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
           {/* Main App Workspace */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-white rounded-2xl border border-[#E2DDD0] overflow-hidden min-h-[600px] shadow-sm">
             {/* Middle Message List */}
@@ -579,7 +452,7 @@ function EmailAppContent() {
                 <button
                   onClick={() => fetchInbox()}
                   disabled={isLoading || isSyncing}
-                  title="Check Mail (IMAP)"
+                  title="Refresh Inbox"
                   className="p-1.5 text-[#5e665d] hover:text-[#003c2d] rounded-lg border border-[#E2DDD0] transition-colors"
                 >
                   <RefreshCw className={`w-3.5 h-3.5 ${isLoading || isSyncing ? "animate-spin text-[#003c2d]" : ""}`} />
@@ -613,9 +486,6 @@ function EmailAppContent() {
                           NEW
                         </span>
                       )}
-                      <span className="text-[9px] font-mono text-[#5e665d]">
-                        IMAP ID #{msg.uid}
-                      </span>
                     </div>
                   </div>
                 ))}
@@ -664,8 +534,8 @@ function EmailAppContent() {
               )}
 
               <div className="pt-6 border-t border-[#E2DDD0] flex items-center justify-between">
-                <span className="text-xs text-[#5e665d] font-mono">
-                  Titan IMAP: imap.titan.email (993) | SMTP: smtp.titan.email (465)
+                <span className="text-xs text-[#5e665d]">
+                  {selectedMessage ? `Received ${new Date(selectedMessage.date).toLocaleDateString([], { month: "short", day: "numeric" })} at ${new Date(selectedMessage.date).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` : ""}
                 </span>
                 <button
                   onClick={() => setIsComposeOpen(true)}
@@ -680,14 +550,14 @@ function EmailAppContent() {
         </Container>
       </div>
 
-      {/* Connect Titan Account Modal */}
+      {/* Corporate Account Access Modal */}
       {isCredentialsModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 border border-[#E2DDD0] shadow-xl">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <KeyRound className="w-5 h-5 text-[#003c2d]" />
-                <h3 className="text-base font-bold text-[#003c2d]">Connect Titan Email Account</h3>
+                <Mail className="w-5 h-5 text-[#003c2d]" />
+                <h3 className="text-base font-bold text-[#003c2d]">Mailbox Access</h3>
               </div>
               <button
                 onClick={() => setIsCredentialsModalOpen(false)}
@@ -697,7 +567,7 @@ function EmailAppContent() {
               </button>
             </div>
             <p className="text-xs text-[#5e665d] mb-4">
-              Enter your Hostinger Titan mailbox credentials. Emails are fetched securely via IMAP and sent via SMTP.
+              Enter your corporate mailbox credentials to securely access and send messages.
             </p>
             <form onSubmit={handleSaveCredentials} className="space-y-4">
               <div>
@@ -705,7 +575,7 @@ function EmailAppContent() {
                 <input
                   type="email"
                   required
-                  placeholder="contact@basepoint.ma"
+                  placeholder="name@basepoint.ma"
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
                   className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
@@ -749,7 +619,7 @@ function EmailAppContent() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <PenSquare className="w-5 h-5 text-[#003c2d]" />
-                <h3 className="text-base font-bold text-[#003c2d]">New Email (Titan SMTP)</h3>
+                <h3 className="text-base font-bold text-[#003c2d]">New Message</h3>
               </div>
               <button
                 onClick={() => setIsComposeOpen(false)}
@@ -802,7 +672,7 @@ function EmailAppContent() {
               </div>
               <div className="pt-3 flex items-center justify-between border-t border-[#E2DDD0]">
                 <span className="text-[10px] text-[#5e665d] font-mono">
-                  From: {userEmail || "Connect Titan account"}
+                  From: {userEmail || "Corporate Account"}
                 </span>
                 <div className="flex items-center gap-2">
                   <button
