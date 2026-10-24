@@ -1,6 +1,6 @@
 {
   "name": "@basepoint-lab/layout",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Basepoint structural layouts, page shells, navigation headers, footers, and composite blocks",
   "author": "Basepoint Engineering <team@basepoint.ma>",
   "license": "MIT",

@@ -31,3 +31,5 @@ export * from './StatsSection';
 export * from './WorkspaceShell';
 export * from './Logo';
 export * from './Monogram';
+export * from './WebsiteErrorView';
+export * from './AppErrorView';
