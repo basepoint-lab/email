@@ -8,6 +8,9 @@ import { Loader2, ShieldAlert, ExternalLink, ArrowRight, LogOut, MailCheck } fro
 interface AuthContextType {
   auth: AuthMeResponse | null;
   assignedAccount: MailAccount | null;
+  assignedAccounts: MailAccount[];
+  selectedAccount: MailAccount | null;
+  setSelectedAccount: (account: MailAccount | null) => void;
   loading: boolean;
   logout: () => Promise<void>;
   refetchAssignment: () => Promise<void>;
@@ -16,6 +19,9 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   auth: null,
   assignedAccount: null,
+  assignedAccounts: [],
+  selectedAccount: null,
+  setSelectedAccount: () => {},
   loading: true,
   logout: async () => {},
   refetchAssignment: async () => {},
@@ -28,19 +34,34 @@ export function useAuth() {
 export function AuthGuard({ children }: { children: React.ReactNode }) {
   const [auth, setAuth] = useState<AuthMeResponse | null>(null);
   const [assignedAccount, setAssignedAccount] = useState<MailAccount | null>(null);
+  const [assignedAccounts, setAssignedAccounts] = useState<MailAccount[]>([]);
+  const [selectedAccount, setSelectedAccount] = useState<MailAccount | null>(null);
   const [hasCheckedAssignment, setHasCheckedAssignment] = useState(false);
   const [loading, setLoading] = useState(true);
 
   async function checkAssignment(userId: string, email?: string | null) {
     try {
       const res = await checkUserAssignedAccount(userId, email);
-      if (res.hasAssignedEmail && res.account) {
-        setAssignedAccount(res.account);
+      if (res.hasAssignedEmail) {
+        const accList = res.accounts && res.accounts.length > 0 ? res.accounts : (res.account ? [res.account] : []);
+        setAssignedAccounts(accList);
+        const primary = res.account || accList[0] || null;
+        setAssignedAccount(primary);
+        setSelectedAccount((prev) => {
+          if (prev && accList.some((a) => a.id === prev.id || a.email === prev.email)) {
+            return prev;
+          }
+          return primary;
+        });
       } else {
+        setAssignedAccounts([]);
         setAssignedAccount(null);
+        setSelectedAccount(null);
       }
     } catch {
+      setAssignedAccounts([]);
       setAssignedAccount(null);
+      setSelectedAccount(null);
     } finally {
       setHasCheckedAssignment(true);
     }
@@ -167,7 +188,18 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ auth, assignedAccount, loading, logout, refetchAssignment }}>
+    <AuthContext.Provider
+      value={{
+        auth,
+        assignedAccount,
+        assignedAccounts,
+        selectedAccount,
+        setSelectedAccount,
+        loading,
+        logout,
+        refetchAssignment,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

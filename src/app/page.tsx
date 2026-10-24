@@ -93,12 +93,15 @@ export default function EmailAppPage() {
 }
 
 function EmailAppContent() {
-  const { auth, assignedAccount, logout } = useAuth();
+  const { auth, assignedAccount, assignedAccounts, selectedAccount, setSelectedAccount, logout } = useAuth();
   const [activeTab, setActiveTab] = useState<"inbox" | "sent">("inbox");
   const [messages, setMessages] = useState<InboundEmail[]>(INITIAL_FALLBACK_MESSAGES);
   const [selectedMessage, setSelectedMessage] = useState<InboundEmail>(INITIAL_FALLBACK_MESSAGES[0]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  // Multi-mailbox filter & switching
+  const [activeAccountFilter, setActiveAccountFilter] = useState<string>("all");
 
   // Mail account credentials state
   const [userEmail, setUserEmail] = useState("");
@@ -119,11 +122,23 @@ function EmailAppContent() {
 
   // Compose modal state
   const [isComposeOpen, setIsComposeOpen] = useState(false);
+  const [composeFrom, setComposeFrom] = useState("");
   const [composeTo, setComposeTo] = useState("");
   const [composeSubject, setComposeSubject] = useState("");
   const [composeBody, setComposeBody] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [sendSuccess, setSendSuccess] = useState<string | null>(null);
+
+  // Sync initial composeFrom with active account
+  useEffect(() => {
+    if (selectedAccount?.email) {
+      setComposeFrom(selectedAccount.email);
+    } else if (assignedAccount?.email) {
+      setComposeFrom(assignedAccount.email);
+    } else if (assignedAccounts.length > 0) {
+      setComposeFrom(assignedAccounts[0].email);
+    }
+  }, [selectedAccount, assignedAccount, assignedAccounts]);
 
   // Load saved credentials from localStorage or assigned account & auto-fetch
   useEffect(() => {
@@ -295,6 +310,7 @@ function EmailAppContent() {
     setErrorMsg(null);
 
     try {
+      const senderAddress = composeFrom || userEmail;
       const res = await fetch("https://api.basepoint.ma/v1/mail/send", {
         method: "POST",
         headers: {
@@ -306,7 +322,7 @@ function EmailAppContent() {
           to: composeTo,
           subject: composeSubject,
           text: composeBody,
-          from: userEmail,
+          from: senderAddress,
         }),
       });
 
@@ -330,13 +346,23 @@ function EmailAppContent() {
     }
   };
 
+  const displayedMessages = messages.filter((msg) => {
+    if (activeAccountFilter === "all") return true;
+    if (!msg.to) return true;
+    return msg.to.toLowerCase().includes(activeAccountFilter.toLowerCase());
+  });
+
   return (
     <WorkspaceShell
       appName="Mail"
       appSubtitle="Basepoint Operations"
       title="Mail"
       subtitle={
-        assignedAccount
+        assignedAccounts.length > 1
+          ? activeAccountFilter === "all"
+            ? `All Linked Mailboxes (${assignedAccounts.length})`
+            : activeAccountFilter
+          : assignedAccount
           ? `${assignedAccount.name} (${assignedAccount.email})`
           : userEmail
           ? userEmail
@@ -344,7 +370,7 @@ function EmailAppContent() {
       }
       currentUser={{
         name: auth?.profile?.display_name || (auth?.user?.email ? auth.user.email.split("@")[0] : "Basepoint User"),
-        email: assignedAccount?.email || auth?.user?.email || userEmail || "admin@basepoint.ma",
+        email: (selectedAccount && selectedAccount.email) || assignedAccount?.email || auth?.user?.email || userEmail || "admin@basepoint.ma",
         role: auth?.roles?.[0] || "Authorized Member",
       }}
       onLogout={logout}
@@ -353,7 +379,7 @@ function EmailAppContent() {
           id: "inbox",
           label: "Inbox",
           icon: <Inbox className="w-4 h-4" />,
-          count: messages.filter((m) => m.unread).length > 0 ? messages.filter((m) => m.unread).length : messages.length,
+          count: displayedMessages.filter((m) => m.unread).length > 0 ? displayedMessages.filter((m) => m.unread).length : displayedMessages.length,
           active: activeTab === "inbox",
           onClick: () => setActiveTab("inbox"),
         },
@@ -367,6 +393,37 @@ function EmailAppContent() {
       ]}
       actionsSlot={
         <div className="flex items-center gap-2">
+          {assignedAccounts.length > 1 && (
+            <div className="hidden lg:flex items-center gap-1 bg-[#F7F5EC] p-1 rounded-xl border border-[#E2DDD0]">
+              <button
+                onClick={() => setActiveAccountFilter("all")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all ${
+                  activeAccountFilter === "all"
+                    ? "bg-[#003c2d] text-[#BCF63C] shadow-xs"
+                    : "text-[#5e665d] hover:text-[#003c2d]"
+                }`}
+              >
+                All ({assignedAccounts.length})
+              </button>
+              {assignedAccounts.map((acc) => (
+                <button
+                  key={acc.id}
+                  onClick={() => {
+                    setActiveAccountFilter(acc.email);
+                    setSelectedAccount(acc);
+                    setUserEmail(acc.email);
+                  }}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all ${
+                    activeAccountFilter === acc.email
+                      ? "bg-[#003c2d] text-[#BCF63C] shadow-xs"
+                      : "text-[#5e665d] hover:text-[#003c2d]"
+                  }`}
+                >
+                  {acc.email.split("@")[0]}
+                </button>
+              ))}
+            </div>
+          )}
           <button
             onClick={() => setIsComposeOpen(true)}
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#003c2d] bg-[#BCF63C] hover:bg-[#a6db32] transition-colors shadow-xs"
@@ -459,8 +516,44 @@ function EmailAppContent() {
                 </button>
               </div>
 
+              {/* Linked Accounts Switcher Tabs */}
+              {assignedAccounts.length > 1 && (
+                <div className="px-3 py-2 bg-[#F7F5EC]/60 border-b border-[#E2DDD0] flex items-center gap-1.5 overflow-x-auto">
+                  <span className="text-[10px] font-mono font-bold text-[#5e665d] uppercase shrink-0">
+                    Mailbox:
+                  </span>
+                  <button
+                    onClick={() => setActiveAccountFilter("all")}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold shrink-0 transition-colors ${
+                      activeAccountFilter === "all"
+                        ? "bg-[#003c2d] text-[#BCF63C] shadow-xs"
+                        : "bg-white text-[#003c2d] border border-[#E2DDD0] hover:bg-[#F7F5EC]"
+                    }`}
+                  >
+                    All Inboxes ({assignedAccounts.length})
+                  </button>
+                  {assignedAccounts.map((acc) => (
+                    <button
+                      key={acc.id}
+                      onClick={() => {
+                        setActiveAccountFilter(acc.email);
+                        setSelectedAccount(acc);
+                        setUserEmail(acc.email);
+                      }}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold shrink-0 transition-colors ${
+                        activeAccountFilter === acc.email
+                          ? "bg-[#003c2d] text-[#BCF63C] shadow-xs"
+                          : "bg-white text-[#003c2d] border border-[#E2DDD0] hover:bg-[#F7F5EC]"
+                      }`}
+                    >
+                      {acc.email}
+                    </button>
+                  ))}
+                </div>
+              )}
+
               <div className="flex-1 overflow-y-auto divide-y divide-[#E2DDD0]/60">
-                {messages.map((msg) => (
+                {displayedMessages.map((msg) => (
                   <div
                     key={msg.uid}
                     onClick={() => handleSelectMessage(msg)}
@@ -480,15 +573,25 @@ function EmailAppContent() {
                     <p className="text-[11px] text-[#5e665d] line-clamp-2 leading-relaxed">
                       {msg.snippet || msg.text || "No preview available"}
                     </p>
-                    <div className="mt-2 flex items-center gap-1.5">
+                    <div className="mt-2 flex items-center gap-1.5 flex-wrap">
                       {msg.unread && (
                         <span className="text-[9px] font-semibold px-2 py-0.5 rounded bg-[#BCF63C] text-[#003c2d]">
                           NEW
                         </span>
                       )}
+                      {msg.to && (
+                        <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#003c2d]/10 text-[#003c2d] font-semibold">
+                          {msg.to}
+                        </span>
+                      )}
                     </div>
                   </div>
                 ))}
+                {displayedMessages.length === 0 && (
+                  <div className="p-8 text-center text-xs text-[#5e665d] font-mono">
+                    No messages found for {activeAccountFilter === "all" ? "these mailboxes" : activeAccountFilter}.
+                  </div>
+                )}
               </div>
             </div>
 
@@ -638,6 +741,29 @@ function EmailAppContent() {
 
             <form onSubmit={handleSendEmail} className="space-y-3">
               <div>
+                <label className="block text-xs font-medium text-[#003c2d] mb-1">From (Sender Mailbox)</label>
+                {assignedAccounts.length > 1 ? (
+                  <select
+                    value={composeFrom || userEmail}
+                    onChange={(e) => setComposeFrom(e.target.value)}
+                    className="w-full px-3 py-2 text-xs font-mono rounded-xl border border-[#E2DDD0] bg-white text-[#003c2d] focus:outline-none focus:border-[#003c2d]"
+                  >
+                    {assignedAccounts.map((acc) => (
+                      <option key={acc.id} value={acc.email}>
+                        {acc.name ? `${acc.name} <${acc.email}>` : acc.email}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    type="text"
+                    readOnly
+                    value={composeFrom || userEmail || "Corporate Account"}
+                    className="w-full px-3 py-2 text-xs font-mono rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 text-[#5e665d] cursor-not-allowed"
+                  />
+                )}
+              </div>
+              <div>
                 <label className="block text-xs font-medium text-[#003c2d] mb-1">To</label>
                 <input
                   type="email"
@@ -672,7 +798,7 @@ function EmailAppContent() {
               </div>
               <div className="pt-3 flex items-center justify-between border-t border-[#E2DDD0]">
                 <span className="text-[10px] text-[#5e665d] font-mono">
-                  From: {userEmail || "Corporate Account"}
+                  From: {composeFrom || userEmail || "Corporate Account"}
                 </span>
                 <div className="flex items-center gap-2">
                   <button

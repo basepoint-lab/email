@@ -26,6 +26,8 @@ export interface CheckAccountResponse {
   status: "success";
   hasAssignedEmail: boolean;
   account: MailAccount | null;
+  accounts?: MailAccount[];
+  count?: number;
   message?: string;
 }
 
