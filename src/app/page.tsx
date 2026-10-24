@@ -35,29 +35,6 @@ interface InboundEmail {
   html?: string;
 }
 
-const INITIAL_FALLBACK_MESSAGES: InboundEmail[] = [
-  {
-    uid: 101,
-    from: "Basepoint System <admin@basepoint.ma>",
-    to: "admin@basepoint.ma",
-    subject: "Welcome to Basepoint Mail",
-    date: new Date().toISOString(),
-    unread: true,
-    snippet: "Your corporate mailbox is configured and ready. You can receive and send messages directly through this portal...",
-    text: "Welcome to your Basepoint Mailbox. All communications are securely routed and synchronized in real time.",
-  },
-  {
-    uid: 102,
-    from: "Basepoint Operations <operations@basepoint.ma>",
-    to: "admin@basepoint.ma",
-    subject: "Workspace & Communications Active",
-    date: new Date(Date.now() - 3600000).toISOString(),
-    unread: false,
-    snippet: "Your workspace has been assigned. You have access to send and receive corporate messages...",
-    text: "Your corporate mailbox is fully authenticated and active.",
-  },
-];
-
 /**
  * Elegant synthesized Web Audio notification chime (F5 -> A5)
  * Pure client-side zero-asset sound with harmonic fade.
@@ -95,8 +72,8 @@ export default function EmailAppPage() {
 function EmailAppContent() {
   const { auth, assignedAccount, assignedAccounts, selectedAccount, setSelectedAccount, logout } = useAuth();
   const [activeTab, setActiveTab] = useState<"inbox" | "sent">("inbox");
-  const [messages, setMessages] = useState<InboundEmail[]>(INITIAL_FALLBACK_MESSAGES);
-  const [selectedMessage, setSelectedMessage] = useState<InboundEmail>(INITIAL_FALLBACK_MESSAGES[0]);
+  const [messages, setMessages] = useState<InboundEmail[]>([]);
+  const [selectedMessage, setSelectedMessage] = useState<InboundEmail | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -143,7 +120,7 @@ function EmailAppContent() {
   // Load saved credentials from localStorage or assigned account & auto-fetch
   useEffect(() => {
     try {
-      const stored = localStorage.getItem("bp_titan_auth");
+      const stored = localStorage.getItem("bp_mail_auth") || localStorage.getItem("bp_titan_auth");
       if (stored) {
         const { email, password } = JSON.parse(stored);
         setUserEmail(email);
@@ -239,7 +216,7 @@ function EmailAppContent() {
     e.preventDefault();
     if (!userEmail || !userPassword) return;
     try {
-      localStorage.setItem("bp_titan_auth", JSON.stringify({ email: userEmail, password: userPassword }));
+      localStorage.setItem("bp_mail_auth", JSON.stringify({ email: userEmail, password: userPassword }));
       setSavedCredentials(true);
       setIsCredentialsModalOpen(false);
       fetchInbox(userEmail, userPassword);
@@ -328,10 +305,10 @@ function EmailAppContent() {
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || "Failed to deliver email through Titan SMTP.");
+        throw new Error(err.message || "Failed to deliver email through SMTP server.");
       }
 
-      setSendSuccess("Email dispatched successfully via Titan SMTP!");
+      setSendSuccess("Email dispatched successfully!");
       setTimeout(() => {
         setIsComposeOpen(false);
         setComposeTo("");
@@ -631,8 +608,11 @@ function EmailAppContent() {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center justify-center h-full text-xs text-[#5e665d]">
-                  Select an email to view contents.
+                <div className="flex flex-col items-center justify-center h-full text-xs text-[#5e665d] space-y-2 py-20">
+                  <div className="w-12 h-12 rounded-2xl bg-[#003c2d]/5 flex items-center justify-center text-[#003c2d]/40">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  <span className="font-mono">Select an email from inbox to view contents</span>
                 </div>
               )}
 

@@ -150,7 +150,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
               1. Open <strong>User Management</strong> (<span className="font-mono">users.basepoint.ma</span>).
             </p>
             <p className="text-[#5e665d]">
-              2. Go to the <strong>Emails</strong> tab and bind your identity to a Titan corporate email address.
+              2. Go to the <strong>Emails</strong> tab and bind your identity to a corporate business email address.
             </p>
             <p className="text-[#5e665d]">
               3. Once linked in Supabase, return here to open your webmail inbox.

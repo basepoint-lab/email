@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Basepoint Mail | Workspace & Email Operations",
   description:
-    "Unified Basepoint Mail workspace, Titan webmail gateway, and Resend transactional delivery operations.",
+    "Unified Basepoint Mail workspace, corporate communications, and transactional delivery operations.",
   icons: {
     icon: "/favicon.ico",
   },
