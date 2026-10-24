@@ -32,25 +32,25 @@ const densityPadding: Record<InputDensity, string> = {
 const variantBaseStyles: Record<InputVariant, { base: string; normal: string; error: string; success: string }> = {
   outlined: {
     base: "bg-white border rounded-xl focus:ring-1 transition-all",
-    normal: "border-[#DDE3D9] focus:border-[#003D28] focus:ring-[#003D28]",
+    normal: "border-[#DDE3D9] focus:border-[#003922] focus:ring-[#003922]",
     error: "border-[#B91C1C] focus:border-[#B91C1C] focus:ring-[#B91C1C]",
     success: "border-[#15803D] focus:border-[#15803D] focus:ring-[#15803D]",
   },
   filled: {
-    base: "bg-[#F6FFE9] border-b-2 rounded-t-xl focus:ring-0 transition-all",
-    normal: "border-[#DDE3D9] focus:border-[#003D28] focus:bg-white",
+    base: "bg-[#f6ffe8] border-b-2 rounded-t-xl focus:ring-0 transition-all",
+    normal: "border-[#DDE3D9] focus:border-[#003922] focus:bg-white",
     error: "border-[#B91C1C] focus:border-[#B91C1C] bg-red-50/50",
     success: "border-[#15803D] focus:border-[#15803D] bg-emerald-50/50",
   },
   tonal: {
-    base: "bg-[#003D28]/5 border border-transparent rounded-xl focus:ring-1 transition-all",
-    normal: "focus:border-[#003D28] focus:ring-[#003D28] focus:bg-white",
+    base: "bg-[#003922]/5 border border-transparent rounded-xl focus:ring-1 transition-all",
+    normal: "focus:border-[#003922] focus:ring-[#003922] focus:bg-white",
     error: "bg-red-50 border-[#B91C1C] focus:border-[#B91C1C] focus:ring-[#B91C1C]",
     success: "bg-emerald-50 border-[#15803D] focus:border-[#15803D] focus:ring-[#15803D]",
   },
   plain: {
     base: "bg-transparent border-b rounded-none px-0 focus:ring-0 transition-all",
-    normal: "border-[#DDE3D9] focus:border-[#003D28]",
+    normal: "border-[#DDE3D9] focus:border-[#003922]",
     error: "border-[#B91C1C] focus:border-[#B91C1C]",
     success: "border-[#15803D] focus:border-[#15803D]",
   },
@@ -106,7 +106,7 @@ export function Input({
         <div className="flex items-center justify-between mb-1.5">
           <label
             htmlFor={inputId}
-            className="block text-xs font-mono font-bold text-[#003D28] uppercase tracking-wider"
+            className="block text-xs font-mono font-bold text-[#003922] uppercase tracking-wider"
           >
             {label}
           </label>
@@ -130,7 +130,7 @@ export function Input({
           value={value}
           defaultValue={defaultValue}
           onChange={handleChange}
-          className={`w-full ${styleCfg.base} ${stateStyle} ${densityPadding[density]} text-[#003c2d] placeholder:text-[#5e665d]/60 focus:outline-none ${
+          className={`w-full ${styleCfg.base} ${stateStyle} ${densityPadding[density]} text-[#003922] placeholder:text-[#5e665d]/60 focus:outline-none ${
             leadIcon ? "pl-9" : ""
           } ${clearable || trailIcon || loading || rightBadge ? "pr-14" : ""} ${
             disabled ? "opacity-50 cursor-not-allowed bg-[#FAF9F5]" : ""
@@ -140,12 +140,12 @@ export function Input({
 
         {/* Right slot: Loader, Clearable, Right Icon, Badge */}
         <div className="absolute right-2.5 flex items-center gap-1.5">
-          {loading && <Loader2 className="w-3.5 h-3.5 animate-spin text-[#003c2d]" />}
+          {loading && <Loader2 className="w-3.5 h-3.5 animate-spin text-[#003922]" />}
           {clearable && currentVal.length > 0 && !disabled && (
             <button
               type="button"
               onClick={handleClear}
-              className="p-1 rounded-full text-[#5e665d] hover:text-[#003c2d] hover:bg-black/5 cursor-pointer transition-colors"
+              className="p-1 rounded-full text-[#5e665d] hover:text-[#003922] hover:bg-black/5 cursor-pointer transition-colors"
               aria-label="Clear input"
             >
               <X className="w-3 h-3" />
@@ -153,7 +153,7 @@ export function Input({
           )}
           {trailIcon && <span className="text-[#5e665d]">{trailIcon}</span>}
           {rightBadge && (
-            <span className="font-mono text-[10px] bg-[#F7F5EC] border border-[#E2DDD0] text-[#5e665d] font-bold px-1.5 py-0.5 rounded">
+            <span className="font-mono text-[10px] bg-[#f6ffe8] border border-[#E2DDD0] text-[#5e665d] font-bold px-1.5 py-0.5 rounded">
               {rightBadge}
             </span>
           )}
@@ -232,7 +232,7 @@ export function Textarea({
         <div className="flex items-center justify-between mb-1.5">
           <label
             htmlFor={textareaId}
-            className="block text-xs font-mono font-bold text-[#003c2d] uppercase tracking-wider"
+            className="block text-xs font-mono font-bold text-[#003922] uppercase tracking-wider"
           >
             {label}
           </label>
@@ -251,7 +251,7 @@ export function Textarea({
         value={value}
         defaultValue={defaultValue}
         onChange={handleChange}
-        className={`w-full ${styleCfg.base} ${stateStyle} px-3.5 py-2.5 text-xs sm:text-sm text-[#003c2d] placeholder:text-[#5e665d]/60 focus:outline-none resize-y ${
+        className={`w-full ${styleCfg.base} ${stateStyle} px-3.5 py-2.5 text-xs sm:text-sm text-[#003922] placeholder:text-[#5e665d]/60 focus:outline-none resize-y ${
           disabled ? "opacity-50 cursor-not-allowed bg-[#FAF9F5]" : ""
         } ${className}`}
         {...props}

@@ -43,13 +43,13 @@ export function TestimonialsSection({
                   <Star key={i} className="w-3.5 h-3.5 fill-current" />
                 ))}
               </div>
-              <span className="font-mono text-xs font-bold text-[#003c2d]">
+              <span className="font-mono text-xs font-bold text-[#003922]">
                 {scoreBadge}
               </span>
             </div>
           )}
 
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#003c2d] tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#003922] tracking-tight leading-tight">
             {title}
           </h2>
 
@@ -75,7 +75,7 @@ export function TestimonialsSection({
             return (
               <div
                 key={idx}
-                className="bg-white border border-[#E2DDD0] rounded-2xl p-6 sm:p-7 shadow-2xs hover:border-[#003c2d] hover:-translate-y-0.5 hover:shadow-md transition-all flex flex-col justify-between"
+                className="bg-white border border-[#E2DDD0] rounded-2xl p-6 sm:p-7 shadow-2xs hover:border-[#003922] hover:-translate-y-0.5 hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -93,14 +93,14 @@ export function TestimonialsSection({
                   </div>
 
                   <div className="relative mb-6">
-                    <Quote className="w-6 h-6 text-[#003c2d]/10 absolute -top-2 -left-1 pointer-events-none" />
-                    <p className="text-xs sm:text-sm text-[#003c2d] leading-relaxed relative z-10 font-medium">
+                    <Quote className="w-6 h-6 text-[#003922]/10 absolute -top-2 -left-1 pointer-events-none" />
+                    <p className="text-xs sm:text-sm text-[#003922] leading-relaxed relative z-10 font-medium">
                       "{t.quote}"
                     </p>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-[#F7F5EC] flex items-center justify-between gap-3">
+                <div className="pt-4 border-t border-[#f6ffe8] flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
                     {t.avatarSrc ? (
                       <img
@@ -109,14 +109,14 @@ export function TestimonialsSection({
                         className="w-9 h-9 rounded-full object-cover shrink-0"
                       />
                     ) : (
-                      <div className="w-9 h-9 rounded-full bg-[#003c2d] text-[#BCF63C] font-mono font-bold text-xs flex items-center justify-center shrink-0">
+                      <div className="w-9 h-9 rounded-full bg-[#003922] text-[#a7ff6d] font-mono font-bold text-xs flex items-center justify-center shrink-0">
                         {initials}
                       </div>
                     )}
 
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-bold text-[#003c2d]">{t.name}</span>
+                        <span className="text-xs font-bold text-[#003922]">{t.name}</span>
                         {t.verified !== false && (
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                         )}
@@ -130,7 +130,7 @@ export function TestimonialsSection({
                   </div>
 
                   {t.stat && (
-                    <span className="hidden sm:inline-block font-mono text-[10px] font-bold text-[#003c2d] bg-[#BCF63C]/40 px-2 py-0.5 rounded shrink-0">
+                    <span className="hidden sm:inline-block font-mono text-[10px] font-bold text-[#003922] bg-[#a7ff6d]/40 px-2 py-0.5 rounded shrink-0">
                       {t.stat}
                     </span>
                   )}

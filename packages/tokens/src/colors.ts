@@ -5,69 +5,69 @@
 
 export const brandColors = {
   pine: {
-    DEFAULT: '#003D28',
-    deep: '#00271D',
-    dark: '#001A13',
-    light: '#00543F',
-    surface: 'rgba(0, 61, 40, 0.05)',
-    border: 'rgba(0, 61, 40, 0.12)',
+    DEFAULT: '#003922',
+    deep: '#002516',
+    dark: '#00180e',
+    light: '#004f2f',
+    surface: 'rgba(0, 57, 34, 0.05)',
+    border: 'rgba(0, 57, 34, 0.12)',
   },
   lime: {
-    DEFAULT: '#A5FF70',
-    hover: '#8CFF50',
-    light: '#C8FFA8',
-    dark: '#76E63A',
-    surface: 'rgba(165, 255, 112, 0.15)',
+    DEFAULT: '#a7ff6d',
+    hover: '#8ef74e',
+    light: '#c7ffa3',
+    dark: '#7de53e',
+    surface: 'rgba(167, 255, 109, 0.15)',
   },
   secondaryLime: {
-    DEFAULT: '#8CFF50',
-    light: '#B2FF8A',
-    dark: '#6FE633',
+    DEFAULT: '#8ef74e',
+    light: '#bafc86',
+    dark: '#72e833',
   },
   // Backwards compatibility alias for spring
   spring: {
-    DEFAULT: '#8CFF50',
-    light: '#B2FF8A',
-    dark: '#6FE633',
+    DEFAULT: '#8ef74e',
+    light: '#bafc86',
+    dark: '#72e833',
   },
   mutedGreen: {
-    DEFAULT: '#647C38',
-    light: '#83A24B',
-    dark: '#4B5E29',
+    DEFAULT: '#5d7634',
+    light: '#7b9944',
+    dark: '#455826',
   },
 } as const;
 
 export const surfaceColors = {
-  canvas: '#F6FFE9',
+  canvas: '#f6ffe8',
   card: '#FFFFFF',
   subtle: '#F2F4EF',
   border: {
     subtle: '#DDE3D9',
     light: '#EAEFE7',
     dark: 'rgba(255, 255, 255, 0.12)',
-    focus: '#003D28',
+    focus: '#003922',
   },
 } as const;
 
 export const textColors = {
-  primary: '#003D28',
+  primary: '#003922',
   secondary: '#202820',
-  muted: '#687368',
+  muted: '#5e665d',
   lightMuted: '#8B968A',
   inverse: '#FFFFFF',
   inverseMuted: 'rgba(255, 255, 255, 0.70)',
 } as const;
 
 export const darkModeColors = {
-  canvas: '#001a13',
-  card: '#00271d',
-  subtle: '#003c2d',
+  canvas: '#00180e',
+  card: '#002516',
+  subtle: '#003922',
   border: 'rgba(255, 255, 255, 0.12)',
   text: {
-    primary: '#F7F5EC',
-    secondary: 'rgba(247, 245, 236, 0.82)',
-    muted: 'rgba(247, 245, 236, 0.58)',
-    inverse: '#003c2d',
+    primary: '#f6ffe8',
+    secondary: 'rgba(246, 255, 232, 0.82)',
+    muted: 'rgba(246, 255, 232, 0.58)',
+    inverse: '#003922',
   },
 } as const;
 

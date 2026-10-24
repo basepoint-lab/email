@@ -1,24 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
+@source "./packages/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../packages/**/*.{js,ts,jsx,tsx,mdx}";
+
 @source "../**/*.{js,ts,jsx,tsx,mdx}";
 @source "../../packages/**/*.{js,ts,jsx,tsx,mdx}";
 
 :root {
-  --brand-pine: #003c2d;
-  --brand-pine-deep: #00271d;
-  --brand-pine-dark: #001a13;
-  --brand-pine-light: #00543f;
-  --brand-lime: #BCF63C;
-  --brand-lime-hover: #a6db32;
-  --brand-spring: #A3FB60;
+  --brand-pine: #003922;
+  --brand-pine-deep: #002516;
+  --brand-pine-dark: #00180e;
+  --brand-pine-light: #004f2f;
+  --brand-lime: #a7ff6d;
+  --brand-lime-hover: #8ef74e;
+  --brand-spring: #8ef74e;
 
-  --bg-canvas: #F7F5EC;
+  --bg-canvas: #f6ffe8;
   --card-bg: #FFFFFF;
   --border-subtle: #E2DDD0;
   --border-dark: rgba(255, 255, 255, 0.12);
 
-  --text-primary: #003c2d;
+  --text-primary: #003922;
   --text-muted: #5e665d;
   --text-inverse: #FFFFFF;
 

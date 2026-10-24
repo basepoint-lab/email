@@ -1,6 +1,6 @@
 {
   "name": "@basepoint-lab/ui",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Basepoint standardized UI component library (Buttons, Badges, Cards, Modals, Inputs, Tabs, Selects, Tables, StatCards, Alerts)",
   "author": "Basepoint Engineering <team@basepoint.ma>",
   "license": "MIT",

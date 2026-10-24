@@ -32,12 +32,12 @@ export interface ProgressBarProps {
 }
 
 const colorMap: Record<string, string> = {
-  primary: "bg-[#003c2d]",
-  pine: "bg-[#003c2d]",
-  secondary: "bg-[#BCF63C]",
-  citron: "bg-[#BCF63C]",
-  tertiary: "bg-[#A3FB60]",
-  spring: "bg-[#A3FB60]",
+  primary: "bg-[#003922]",
+  pine: "bg-[#003922]",
+  secondary: "bg-[#a7ff6d]",
+  citron: "bg-[#a7ff6d]",
+  tertiary: "bg-[#8ef74e]",
+  spring: "bg-[#8ef74e]",
   success: "bg-[#10b981]",
   warning: "bg-[#f59e0b]",
   danger: "bg-[#ef4444]",
@@ -90,7 +90,7 @@ export function ProgressBar({
     <div className={`w-full ${className}`}>
       {(label || showValue) && (
         <div className="flex items-center justify-between text-[11px] font-mono mb-1.5">
-          {label && <span className="font-bold text-[#003c2d] uppercase">{label}</span>}
+          {label && <span className="font-bold text-[#003922] uppercase">{label}</span>}
           {showValue && !indeterminate && (
             <span className="text-[#5e665d] font-bold">{percentage}%</span>
           )}
@@ -102,7 +102,7 @@ export function ProgressBar({
         {/* Buffer stream bar */}
         {bufferPercent !== undefined && (
           <div
-            className={`absolute top-0 bottom-0 left-0 bg-[#003c2d]/20 transition-all duration-300 ${roundedMap[rounded]}`}
+            className={`absolute top-0 bottom-0 left-0 bg-[#003922]/20 transition-all duration-300 ${roundedMap[rounded]}`}
             style={{ width: `${bufferPercent}%` }}
           />
         )}

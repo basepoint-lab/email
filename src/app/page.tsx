@@ -371,13 +371,13 @@ function EmailAppContent() {
       actionsSlot={
         <div className="flex items-center gap-2">
           {assignedAccounts.length > 1 && (
-            <div className="hidden lg:flex items-center gap-1 bg-[#F7F5EC] p-1 rounded-xl border border-[#E2DDD0]">
+            <div className="hidden lg:flex items-center gap-1 bg-[#f6ffe8] p-1 rounded-xl border border-[#E2DDD0]">
               <button
                 onClick={() => setActiveAccountFilter("all")}
                 className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all ${
                   activeAccountFilter === "all"
-                    ? "bg-[#003c2d] text-[#BCF63C] shadow-xs"
-                    : "text-[#5e665d] hover:text-[#003c2d]"
+                    ? "bg-[#003922] text-[#a7ff6d] shadow-xs"
+                    : "text-[#5e665d] hover:text-[#003922]"
                 }`}
               >
                 All ({assignedAccounts.length})
@@ -392,8 +392,8 @@ function EmailAppContent() {
                   }}
                   className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all ${
                     activeAccountFilter === acc.email
-                      ? "bg-[#003c2d] text-[#BCF63C] shadow-xs"
-                      : "text-[#5e665d] hover:text-[#003c2d]"
+                      ? "bg-[#003922] text-[#a7ff6d] shadow-xs"
+                      : "text-[#5e665d] hover:text-[#003922]"
                   }`}
                 >
                   {acc.email.split("@")[0]}
@@ -403,9 +403,9 @@ function EmailAppContent() {
           )}
           <button
             onClick={() => setIsComposeOpen(true)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#003c2d] bg-[#BCF63C] hover:bg-[#a6db32] transition-colors shadow-xs"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#003922] bg-[#a7ff6d] hover:bg-[#8ef74e] transition-colors shadow-xs"
           >
-            <PenSquare className="w-3.5 h-3.5 text-[#003c2d]" />
+            <PenSquare className="w-3.5 h-3.5 text-[#003922]" />
             <span>New Message</span>
           </button>
         </div>
@@ -415,14 +415,14 @@ function EmailAppContent() {
         <Container size="full">
           {/* Real-time incoming email notification toast */}
           {newMailNotification && (
-            <div className="mb-4 p-4 rounded-xl bg-[#003c2d] text-white border-2 border-[#BCF63C] shadow-lg flex items-center justify-between transition-all">
+            <div className="mb-4 p-4 rounded-xl bg-[#003922] text-white border-2 border-[#a7ff6d] shadow-lg flex items-center justify-between transition-all">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-[#BCF63C]/20 border border-[#BCF63C] flex items-center justify-center shrink-0">
-                  <Mail className="w-5 h-5 text-[#BCF63C]" />
+                <div className="w-9 h-9 rounded-lg bg-[#a7ff6d]/20 border border-[#a7ff6d] flex items-center justify-center shrink-0">
+                  <Mail className="w-5 h-5 text-[#a7ff6d]" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-[#BCF63C] uppercase tracking-wider font-mono">
+                    <span className="text-xs font-bold text-[#a7ff6d] uppercase tracking-wider font-mono">
                       ● New Message ({newMailNotification.count})
                     </span>
                   </div>
@@ -440,7 +440,7 @@ function EmailAppContent() {
                     handleSelectMessage(newMailNotification.msg);
                     setNewMailNotification(null);
                   }}
-                  className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#BCF63C] text-[#003c2d] hover:bg-[#a6db32] transition-colors"
+                  className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#a7ff6d] text-[#003922] hover:bg-[#8ef74e] transition-colors"
                 >
                   View Email
                 </button>
@@ -480,22 +480,22 @@ function EmailAppContent() {
                   <input
                     type="text"
                     placeholder="Search inbox..."
-                    className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
+                    className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-[#E2DDD0] bg-[#f6ffe8]/50 focus:outline-none focus:border-[#003922]"
                   />
                 </div>
                 <button
                   onClick={() => fetchInbox()}
                   disabled={isLoading || isSyncing}
                   title="Refresh Inbox"
-                  className="p-1.5 text-[#5e665d] hover:text-[#003c2d] rounded-lg border border-[#E2DDD0] transition-colors"
+                  className="p-1.5 text-[#5e665d] hover:text-[#003922] rounded-lg border border-[#E2DDD0] transition-colors"
                 >
-                  <RefreshCw className={`w-3.5 h-3.5 ${isLoading || isSyncing ? "animate-spin text-[#003c2d]" : ""}`} />
+                  <RefreshCw className={`w-3.5 h-3.5 ${isLoading || isSyncing ? "animate-spin text-[#003922]" : ""}`} />
                 </button>
               </div>
 
               {/* Linked Accounts Switcher Tabs */}
               {assignedAccounts.length > 1 && (
-                <div className="px-3 py-2 bg-[#F7F5EC]/60 border-b border-[#E2DDD0] flex items-center gap-1.5 overflow-x-auto">
+                <div className="px-3 py-2 bg-[#f6ffe8]/60 border-b border-[#E2DDD0] flex items-center gap-1.5 overflow-x-auto">
                   <span className="text-[10px] font-mono font-bold text-[#5e665d] uppercase shrink-0">
                     Mailbox:
                   </span>
@@ -503,8 +503,8 @@ function EmailAppContent() {
                     onClick={() => setActiveAccountFilter("all")}
                     className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold shrink-0 transition-colors ${
                       activeAccountFilter === "all"
-                        ? "bg-[#003c2d] text-[#BCF63C] shadow-xs"
-                        : "bg-white text-[#003c2d] border border-[#E2DDD0] hover:bg-[#F7F5EC]"
+                        ? "bg-[#003922] text-[#a7ff6d] shadow-xs"
+                        : "bg-white text-[#003922] border border-[#E2DDD0] hover:bg-[#f6ffe8]"
                     }`}
                   >
                     All Inboxes ({assignedAccounts.length})
@@ -519,8 +519,8 @@ function EmailAppContent() {
                       }}
                       className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold shrink-0 transition-colors ${
                         activeAccountFilter === acc.email
-                          ? "bg-[#003c2d] text-[#BCF63C] shadow-xs"
-                          : "bg-white text-[#003c2d] border border-[#E2DDD0] hover:bg-[#F7F5EC]"
+                          ? "bg-[#003922] text-[#a7ff6d] shadow-xs"
+                          : "bg-white text-[#003922] border border-[#E2DDD0] hover:bg-[#f6ffe8]"
                       }`}
                     >
                       {acc.email}
@@ -536,28 +536,28 @@ function EmailAppContent() {
                     onClick={() => handleSelectMessage(msg)}
                     className={`p-4 cursor-pointer transition-colors ${
                       selectedMessage?.uid === msg.uid
-                        ? "bg-[#F7F5EC]"
-                        : "hover:bg-[#F7F5EC]/50 bg-white"
+                        ? "bg-[#f6ffe8]"
+                        : "hover:bg-[#f6ffe8]/50 bg-white"
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-bold text-[#003c2d] truncate">{msg.from}</span>
+                      <span className="text-xs font-bold text-[#003922] truncate">{msg.from}</span>
                       <span className="text-[10px] text-[#5e665d] font-mono">
                         {new Date(msg.date).toLocaleDateString([], { month: "short", day: "numeric" })}
                       </span>
                     </div>
-                    <h4 className="text-xs font-semibold text-[#003c2d] mb-1 line-clamp-1">{msg.subject}</h4>
+                    <h4 className="text-xs font-semibold text-[#003922] mb-1 line-clamp-1">{msg.subject}</h4>
                     <p className="text-[11px] text-[#5e665d] line-clamp-2 leading-relaxed">
                       {msg.snippet || msg.text || "No preview available"}
                     </p>
                     <div className="mt-2 flex items-center gap-1.5 flex-wrap">
                       {msg.unread && (
-                        <span className="text-[9px] font-semibold px-2 py-0.5 rounded bg-[#BCF63C] text-[#003c2d]">
+                        <span className="text-[9px] font-semibold px-2 py-0.5 rounded bg-[#a7ff6d] text-[#003922]">
                           NEW
                         </span>
                       )}
                       {msg.to && (
-                        <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#003c2d]/10 text-[#003c2d] font-semibold">
+                        <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#003922]/10 text-[#003922] font-semibold">
                           {msg.to}
                         </span>
                       )}
@@ -578,30 +578,30 @@ function EmailAppContent() {
                 <div>
                   <div className="flex items-center justify-between pb-4 border-b border-[#E2DDD0] mb-4">
                     <div>
-                      <h2 className="text-lg font-bold text-[#003c2d] mb-1">{selectedMessage.subject}</h2>
+                      <h2 className="text-lg font-bold text-[#003922] mb-1">{selectedMessage.subject}</h2>
                       <div className="flex items-center gap-2 text-xs text-[#5e665d]">
-                        <span>From: <strong className="text-[#003c2d]">{selectedMessage.from}</strong></span>
+                        <span>From: <strong className="text-[#003922]">{selectedMessage.from}</strong></span>
                         {selectedMessage.to && <span>To: {selectedMessage.to}</span>}
                       </div>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <button className="p-2 text-[#5e665d] hover:text-[#003c2d] rounded-lg hover:bg-[#F7F5EC]">
+                      <button className="p-2 text-[#5e665d] hover:text-[#003922] rounded-lg hover:bg-[#f6ffe8]">
                         <Archive className="w-4 h-4" />
                       </button>
-                      <button className="p-2 text-[#5e665d] hover:text-[#003c2d] rounded-lg hover:bg-[#F7F5EC]">
+                      <button className="p-2 text-[#5e665d] hover:text-[#003922] rounded-lg hover:bg-[#f6ffe8]">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
 
-                  <div className="text-sm text-[#003c2d] leading-relaxed space-y-4">
+                  <div className="text-sm text-[#003922] leading-relaxed space-y-4">
                     {selectedMessage.html ? (
                       <div
                         className="prose prose-sm max-w-none text-xs"
                         dangerouslySetInnerHTML={{ __html: selectedMessage.html }}
                       />
                     ) : (
-                      <div className="whitespace-pre-wrap font-sans text-xs text-[#003c2d] leading-relaxed">
+                      <div className="whitespace-pre-wrap font-sans text-xs text-[#003922] leading-relaxed">
                         {selectedMessage.text || selectedMessage.snippet}
                       </div>
                     )}
@@ -609,7 +609,7 @@ function EmailAppContent() {
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center h-full text-xs text-[#5e665d] space-y-2 py-20">
-                  <div className="w-12 h-12 rounded-2xl bg-[#003c2d]/5 flex items-center justify-center text-[#003c2d]/40">
+                  <div className="w-12 h-12 rounded-2xl bg-[#003922]/5 flex items-center justify-center text-[#003922]/40">
                     <Mail className="w-6 h-6" />
                   </div>
                   <span className="font-mono">Select an email from inbox to view contents</span>
@@ -622,7 +622,7 @@ function EmailAppContent() {
                 </span>
                 <button
                   onClick={() => setIsComposeOpen(true)}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#003c2d] hover:text-[#00543f]"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#003922] hover:text-[#004f2f]"
                 >
                   <PenSquare className="w-3.5 h-3.5" />
                   <span>Send Reply</span>
@@ -639,12 +639,12 @@ function EmailAppContent() {
           <div className="bg-white rounded-2xl max-w-md w-full p-6 border border-[#E2DDD0] shadow-xl">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <Mail className="w-5 h-5 text-[#003c2d]" />
-                <h3 className="text-base font-bold text-[#003c2d]">Mailbox Access</h3>
+                <Mail className="w-5 h-5 text-[#003922]" />
+                <h3 className="text-base font-bold text-[#003922]">Mailbox Access</h3>
               </div>
               <button
                 onClick={() => setIsCredentialsModalOpen(false)}
-                className="p-1 rounded-lg text-[#5e665d] hover:text-[#003c2d]"
+                className="p-1 rounded-lg text-[#5e665d] hover:text-[#003922]"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -654,38 +654,38 @@ function EmailAppContent() {
             </p>
             <form onSubmit={handleSaveCredentials} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-[#003c2d] mb-1">Email Address</label>
+                <label className="block text-xs font-medium text-[#003922] mb-1">Email Address</label>
                 <input
                   type="email"
                   required
                   placeholder="name@basepoint.ma"
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#f6ffe8]/50 focus:outline-none focus:border-[#003922]"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-[#003c2d] mb-1">Password</label>
+                <label className="block text-xs font-medium text-[#003922] mb-1">Password</label>
                 <input
                   type="password"
                   required
                   placeholder="Your mailbox password"
                   value={userPassword}
                   onChange={(e) => setUserPassword(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#f6ffe8]/50 focus:outline-none focus:border-[#003922]"
                 />
               </div>
               <div className="pt-2 flex items-center justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setIsCredentialsModalOpen(false)}
-                  className="px-3 py-2 rounded-xl text-xs font-semibold text-[#5e665d] hover:bg-[#F7F5EC]"
+                  className="px-3 py-2 rounded-xl text-xs font-semibold text-[#5e665d] hover:bg-[#f6ffe8]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#003c2d] hover:bg-[#00543f] shadow-xs"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#003922] hover:bg-[#004f2f] shadow-xs"
                 >
                   Save & Connect
                 </button>
@@ -701,12 +701,12 @@ function EmailAppContent() {
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 border border-[#E2DDD0] shadow-xl">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <PenSquare className="w-5 h-5 text-[#003c2d]" />
-                <h3 className="text-base font-bold text-[#003c2d]">New Message</h3>
+                <PenSquare className="w-5 h-5 text-[#003922]" />
+                <h3 className="text-base font-bold text-[#003922]">New Message</h3>
               </div>
               <button
                 onClick={() => setIsComposeOpen(false)}
-                className="p-1 rounded-lg text-[#5e665d] hover:text-[#003c2d]"
+                className="p-1 rounded-lg text-[#5e665d] hover:text-[#003922]"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -721,12 +721,12 @@ function EmailAppContent() {
 
             <form onSubmit={handleSendEmail} className="space-y-3">
               <div>
-                <label className="block text-xs font-medium text-[#003c2d] mb-1">From (Sender Mailbox)</label>
+                <label className="block text-xs font-medium text-[#003922] mb-1">From (Sender Mailbox)</label>
                 {assignedAccounts.length > 1 ? (
                   <select
                     value={composeFrom || userEmail}
                     onChange={(e) => setComposeFrom(e.target.value)}
-                    className="w-full px-3 py-2 text-xs font-mono rounded-xl border border-[#E2DDD0] bg-white text-[#003c2d] focus:outline-none focus:border-[#003c2d]"
+                    className="w-full px-3 py-2 text-xs font-mono rounded-xl border border-[#E2DDD0] bg-white text-[#003922] focus:outline-none focus:border-[#003922]"
                   >
                     {assignedAccounts.map((acc) => (
                       <option key={acc.id} value={acc.email}>
@@ -739,41 +739,41 @@ function EmailAppContent() {
                     type="text"
                     readOnly
                     value={composeFrom || userEmail || "Corporate Account"}
-                    className="w-full px-3 py-2 text-xs font-mono rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 text-[#5e665d] cursor-not-allowed"
+                    className="w-full px-3 py-2 text-xs font-mono rounded-xl border border-[#E2DDD0] bg-[#f6ffe8]/50 text-[#5e665d] cursor-not-allowed"
                   />
                 )}
               </div>
               <div>
-                <label className="block text-xs font-medium text-[#003c2d] mb-1">To</label>
+                <label className="block text-xs font-medium text-[#003922] mb-1">To</label>
                 <input
                   type="email"
                   required
                   placeholder="recipient@example.com"
                   value={composeTo}
                   onChange={(e) => setComposeTo(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#f6ffe8]/50 focus:outline-none focus:border-[#003922]"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-[#003c2d] mb-1">Subject</label>
+                <label className="block text-xs font-medium text-[#003922] mb-1">Subject</label>
                 <input
                   type="text"
                   required
                   placeholder="Subject line"
                   value={composeSubject}
                   onChange={(e) => setComposeSubject(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#f6ffe8]/50 focus:outline-none focus:border-[#003922]"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-[#003c2d] mb-1">Message Body</label>
+                <label className="block text-xs font-medium text-[#003922] mb-1">Message Body</label>
                 <textarea
                   required
                   rows={6}
                   placeholder="Write your email message here..."
                   value={composeBody}
                   onChange={(e) => setComposeBody(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#F7F5EC]/50 focus:outline-none focus:border-[#003c2d]"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E2DDD0] bg-[#f6ffe8]/50 focus:outline-none focus:border-[#003922]"
                 />
               </div>
               <div className="pt-3 flex items-center justify-between border-t border-[#E2DDD0]">
@@ -784,16 +784,16 @@ function EmailAppContent() {
                   <button
                     type="button"
                     onClick={() => setIsComposeOpen(false)}
-                    className="px-3 py-2 rounded-xl text-xs font-semibold text-[#5e665d] hover:bg-[#F7F5EC]"
+                    className="px-3 py-2 rounded-xl text-xs font-semibold text-[#5e665d] hover:bg-[#f6ffe8]"
                   >
                     Discard
                   </button>
                   <button
                     type="submit"
                     disabled={isSending}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#003c2d] hover:bg-[#00543f] shadow-xs"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#003922] hover:bg-[#004f2f] shadow-xs"
                   >
-                    <Send className="w-3.5 h-3.5 text-[#BCF63C]" />
+                    <Send className="w-3.5 h-3.5 text-[#a7ff6d]" />
                     <span>{isSending ? "Sending..." : "Send Message"}</span>
                   </button>
                 </div>

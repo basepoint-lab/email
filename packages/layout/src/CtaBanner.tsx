@@ -32,21 +32,21 @@ export function CtaBanner({
   return (
     <div className={`py-16 sm:py-20 ${className}`}>
       <Container size="xl">
-        <div className="bg-[#003c2d] text-white rounded-3xl p-8 sm:p-14 relative overflow-hidden shadow-2xl border-2 border-[#00281e]">
+        <div className="bg-[#003922] text-white rounded-3xl p-8 sm:p-14 relative overflow-hidden shadow-2xl border-2 border-[#002516]">
           {/* Ambient Glow */}
-          <div className="absolute right-0 top-0 w-96 h-96 bg-[#BCF63C]/15 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+          <div className="absolute right-0 top-0 w-96 h-96 bg-[#a7ff6d]/15 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
 
           <div className="relative z-10 max-w-3xl">
             {/* Header Badge */}
             {(badge || badgeNote) && (
               <div className="inline-flex items-center gap-2 mb-4">
                 {badge && (
-                  <span className="font-mono text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-[#BCF63C] text-[#003c2d]">
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-[#a7ff6d] text-[#003922]">
                     {badge}
                   </span>
                 )}
                 {badgeNote && (
-                  <span className="text-xs font-mono text-[#F7F5EC]/70 hidden sm:inline">
+                  <span className="text-xs font-mono text-[#f6ffe8]/70 hidden sm:inline">
                     {badgeNote}
                   </span>
                 )}
@@ -60,7 +60,7 @@ export function CtaBanner({
 
             {/* Description */}
             {description && (
-              <p className="text-sm sm:text-base text-[#F7F5EC]/85 max-w-2xl leading-relaxed mb-8">
+              <p className="text-sm sm:text-base text-[#f6ffe8]/85 max-w-2xl leading-relaxed mb-8">
                 {description}
               </p>
             )}
@@ -70,7 +70,7 @@ export function CtaBanner({
               {primaryCtaText && (
                 <a
                   href={primaryCtaHref}
-                  className="inline-flex items-center gap-2 py-3.5 px-6 rounded-xl bg-[#BCF63C] hover:bg-[#a6db32] text-[#003c2d] font-mono text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer"
+                  className="inline-flex items-center gap-2 py-3.5 px-6 rounded-xl bg-[#a7ff6d] hover:bg-[#8ef74e] text-[#003922] font-mono text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer"
                 >
                   <span>{primaryCtaText}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -80,7 +80,7 @@ export function CtaBanner({
               {secondaryCtaText && (
                 <a
                   href={secondaryCtaHref}
-                  className="inline-flex items-center gap-2 py-3.5 px-6 rounded-xl bg-transparent hover:bg-white hover:text-[#003c2d] text-[#F7F5EC] border border-[#F7F5EC] font-mono text-xs sm:text-sm font-bold transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2 py-3.5 px-6 rounded-xl bg-transparent hover:bg-white hover:text-[#003922] text-[#f6ffe8] border border-[#f6ffe8] font-mono text-xs sm:text-sm font-bold transition-all cursor-pointer"
                 >
                   {secondaryCtaText}
                 </a>
@@ -89,10 +89,10 @@ export function CtaBanner({
 
             {/* Trust Footnote */}
             {(guaranteeText || ratingText) && (
-              <div className="pt-6 border-t border-[#F7F5EC]/15 flex flex-wrap items-center gap-6 text-xs font-mono text-[#F7F5EC]/70">
+              <div className="pt-6 border-t border-[#f6ffe8]/15 flex flex-wrap items-center gap-6 text-xs font-mono text-[#f6ffe8]/70">
                 {guaranteeText && (
                   <div className="flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4 text-[#BCF63C] shrink-0" />
+                    <ShieldCheck className="w-4 h-4 text-[#a7ff6d] shrink-0" />
                     <span>{guaranteeText}</span>
                   </div>
                 )}

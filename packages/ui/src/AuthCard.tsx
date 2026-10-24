@@ -27,18 +27,18 @@ export function AuthCard({
       {...props}
     >
       {/* Top Banner Accent */}
-      <div className="h-1.5 w-full bg-gradient-to-r from-[#003c2d] via-[#00543f] to-[#BCF63C]" />
+      <div className="h-1.5 w-full bg-gradient-to-r from-[#003922] via-[#004f2f] to-[#a7ff6d]" />
 
       <div className="p-6 sm:p-8">
         {/* Header with Monogram & Badge */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
-            <span className="font-black text-2xl tracking-tight text-[#003c2d]">
-              basepoint<span className="text-[#BCF63C]">.</span>
+            <span className="font-black text-2xl tracking-tight text-[#003922]">
+              basepoint<span className="text-[#a7ff6d]">.</span>
             </span>
           </div>
           {badge && (
-            <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-[#003c2d] text-[#BCF63C]">
+            <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-[#003922] text-[#a7ff6d]">
               <Shield className="w-3 h-3" />
               <span>{badge}</span>
             </span>
@@ -47,7 +47,7 @@ export function AuthCard({
 
         {/* Title & Subtitle */}
         <div className="mb-6">
-          <h2 className="text-xl font-extrabold text-[#003c2d] tracking-tight">{title}</h2>
+          <h2 className="text-xl font-extrabold text-[#003922] tracking-tight">{title}</h2>
           {subtitle && <p className="text-xs text-[#5e665d] mt-1 leading-relaxed">{subtitle}</p>}
         </div>
 
@@ -76,7 +76,7 @@ export function AuthCard({
         <div className="space-y-4">{children}</div>
 
         {/* Optional Footer */}
-        {footer && <div className="mt-6 pt-4 border-t border-[#F7F5EC] text-xs font-mono text-center text-[#5e665d]">{footer}</div>}
+        {footer && <div className="mt-6 pt-4 border-t border-[#f6ffe8] text-xs font-mono text-center text-[#5e665d]">{footer}</div>}
       </div>
     </div>
   );

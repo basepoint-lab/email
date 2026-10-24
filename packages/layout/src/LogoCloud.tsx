@@ -35,13 +35,13 @@ export function LogoCloud({
         {(badge || title) && (
           <div className="text-center max-w-xl mx-auto mb-10 sm:mb-12">
             {badge && (
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#003c2d]/5 border border-[#003c2d]/15 text-xs font-mono font-bold text-[#003c2d] mb-3">
-                <Handshake className="w-3.5 h-3.5 text-[#003c2d]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#003922]/5 border border-[#003922]/15 text-xs font-mono font-bold text-[#003922] mb-3">
+                <Handshake className="w-3.5 h-3.5 text-[#003922]" />
                 <span>{badge}</span>
               </div>
             )}
             {title && (
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#003c2d] tracking-tight">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#003922] tracking-tight">
                 {title}
               </h3>
             )}
@@ -58,13 +58,13 @@ export function LogoCloud({
                   role="tooltip"
                   className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 sm:w-80 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto z-40"
                 >
-                  <div className="relative rounded-2xl bg-[#003c2d] text-white p-4 sm:p-5 shadow-2xl border border-[#BCF63C]/20 backdrop-blur-md">
+                  <div className="relative rounded-2xl bg-[#003922] text-white p-4 sm:p-5 shadow-2xl border border-[#a7ff6d]/20 backdrop-blur-md">
                     {item.category && (
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#BCF63C] bg-white/10 px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#a7ff6d] bg-white/10 px-2 py-0.5 rounded-full">
                           {item.category}
                         </span>
-                        <ExternalLink className="w-3.5 h-3.5 text-[#BCF63C]/80" />
+                        <ExternalLink className="w-3.5 h-3.5 text-[#a7ff6d]/80" />
                       </div>
                     )}
                     <h4 className="text-sm sm:text-base font-extrabold text-white tracking-tight mb-1.5">
@@ -76,12 +76,12 @@ export function LogoCloud({
                       </p>
                     )}
                     {item.highlight && (
-                      <div className="pt-2 border-t border-white/10 flex items-center gap-1 text-[11px] font-medium text-[#BCF63C]">
+                      <div className="pt-2 border-t border-white/10 flex items-center gap-1 text-[11px] font-medium text-[#a7ff6d]">
                         <Sparkles className="w-3 h-3 shrink-0" />
                         <span className="truncate">{item.highlight}</span>
                       </div>
                     )}
-                    <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#003c2d] rotate-45 border-r border-b border-[#BCF63C]/20" />
+                    <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#003922] rotate-45 border-r border-b border-[#a7ff6d]/20" />
                   </div>
                 </div>
               )}
@@ -110,9 +110,9 @@ export function LogoCloud({
             <button
               type="button"
               onClick={onCtaClick}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 hover:bg-white border border-[#E2DDD0] text-xs font-mono font-bold text-[#003c2d] hover:border-[#003c2d]/40 transition-all cursor-pointer shadow-2xs hover:scale-105"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 hover:bg-white border border-[#E2DDD0] text-xs font-mono font-bold text-[#003922] hover:border-[#003922]/40 transition-all cursor-pointer shadow-2xs hover:scale-105"
             >
-              <Handshake className="w-3.5 h-3.5 text-[#003c2d]" />
+              <Handshake className="w-3.5 h-3.5 text-[#003922]" />
               <span>{ctaText}</span>
             </button>
           </div>

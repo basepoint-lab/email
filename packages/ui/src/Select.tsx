@@ -34,7 +34,7 @@ export function Select({
       {label && (
         <label
           htmlFor={generatedId}
-          className="block text-xs font-mono font-bold text-[#003c2d] uppercase tracking-wider mb-1.5"
+          className="block text-xs font-mono font-bold text-[#003922] uppercase tracking-wider mb-1.5"
         >
           {label}
         </label>
@@ -50,12 +50,12 @@ export function Select({
         <select
           id={generatedId}
           disabled={disabled}
-          className={`w-full appearance-none rounded-xl border bg-white text-xs font-medium text-[#003c2d] py-2.5 transition-all shadow-xs focus:outline-none ${
+          className={`w-full appearance-none rounded-xl border bg-white text-xs font-medium text-[#003922] py-2.5 transition-all shadow-xs focus:outline-none ${
             icon ? "pl-9" : "pl-3.5"
           } pr-9 ${
             error
               ? "border-[#ef4444] focus:border-[#ef4444] focus:ring-1 focus:ring-[#ef4444]"
-              : "border-[#E2DDD0] hover:border-[#003c2d] focus:border-[#003c2d] focus:ring-1 focus:ring-[#003c2d]"
+              : "border-[#E2DDD0] hover:border-[#003922] focus:border-[#003922] focus:ring-1 focus:ring-[#003922]"
           } ${disabled ? "bg-[#FAF9F5] opacity-60 cursor-not-allowed" : "cursor-pointer"} ${className}`}
           {...props}
         >

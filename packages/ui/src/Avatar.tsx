@@ -22,11 +22,11 @@ const sizeClasses: Record<AvatarSize, { container: string; text: string; status:
 };
 
 const colorClasses: Record<AvatarColor, string> = {
-  pine: "bg-[#003D28] text-[#A5FF70] border-[#00271D]",
-  citron: "bg-[#A5FF70] text-[#003D28] border-[#8CFF50]",
-  spring: "bg-[#8CFF50] text-[#003D28] border-[#6FE633]",
-  linen: "bg-[#F6FFE9] text-[#003D28] border-[#DDE3D9]",
-  charcoal: "bg-[#202820] text-[#F6FFE9] border-[#141B14]",
+  pine: "bg-[#003922] text-[#a7ff6d] border-[#002516]",
+  citron: "bg-[#a7ff6d] text-[#003922] border-[#8ef74e]",
+  spring: "bg-[#8ef74e] text-[#003922] border-[#6FE633]",
+  linen: "bg-[#f6ffe8] text-[#003922] border-[#DDE3D9]",
+  charcoal: "bg-[#202820] text-[#f6ffe8] border-[#141B14]",
 };
 
 const statusClasses: Record<AvatarStatus, string> = {
@@ -112,7 +112,7 @@ export function AvatarGroup({
       {visible}
       {excess > 0 && (
         <div
-          className={`relative inline-flex items-center justify-center rounded-full border border-[#E2DDD0] bg-[#F7F5EC] text-[#003c2d] font-mono font-bold select-none ${cfg.container} ${cfg.text}`}
+          className={`relative inline-flex items-center justify-center rounded-full border border-[#E2DDD0] bg-[#f6ffe8] text-[#003922] font-mono font-bold select-none ${cfg.container} ${cfg.text}`}
           title={`${excess} more team members`}
         >
           +{excess}

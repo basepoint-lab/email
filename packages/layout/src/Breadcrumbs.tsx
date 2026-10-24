@@ -35,13 +35,13 @@ export function Breadcrumbs({
               )}
 
               {isLast || !item.href ? (
-                <span className="text-[#003c2d] font-bold" aria-current={isLast ? "page" : undefined}>
+                <span className="text-[#003922] font-bold" aria-current={isLast ? "page" : undefined}>
                   {item.label}
                 </span>
               ) : (
                 <a
                   href={item.href}
-                  className="text-[#5e665d] hover:text-[#003c2d] hover:underline transition-colors"
+                  className="text-[#5e665d] hover:text-[#003922] hover:underline transition-colors"
                 >
                   {item.label}
                 </a>

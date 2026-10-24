@@ -25,7 +25,7 @@ export function Alert({
   ...props
 }: AlertProps) {
   const defaultIcons = {
-    primary: <Info className="w-4 h-4 text-[#003c2d]" />,
+    primary: <Info className="w-4 h-4 text-[#003922]" />,
     success: <CheckCircle2 className="w-4 h-4 text-emerald-600" />,
     warning: <AlertTriangle className="w-4 h-4 text-amber-600" />,
     danger: <AlertCircle className="w-4 h-4 text-rose-600" />,
@@ -35,10 +35,10 @@ export function Alert({
 
   const colorStyles: Record<AlertColor, Record<AlertVariant, string>> = {
     primary: {
-      tonal: "bg-[#003c2d]/10 text-[#003c2d] border-[#003c2d]/20",
-      outlined: "border-[#003c2d] text-[#003c2d] bg-transparent",
-      flat: "bg-[#003c2d] text-white border-transparent",
-      elevated: "bg-white text-[#003c2d] border-[#E2DDD0] shadow-md",
+      tonal: "bg-[#003922]/10 text-[#003922] border-[#003922]/20",
+      outlined: "border-[#003922] text-[#003922] bg-transparent",
+      flat: "bg-[#003922] text-white border-transparent",
+      elevated: "bg-white text-[#003922] border-[#E2DDD0] shadow-md",
     },
     success: {
       tonal: "bg-emerald-50 text-emerald-900 border-emerald-200",
@@ -65,10 +65,10 @@ export function Alert({
       elevated: "bg-white text-sky-900 border-sky-200 shadow-md",
     },
     neutral: {
-      tonal: "bg-[#F7F5EC] text-[#003c2d] border-[#E2DDD0]",
-      outlined: "border-[#E2DDD0] text-[#003c2d] bg-transparent",
+      tonal: "bg-[#f6ffe8] text-[#003922] border-[#E2DDD0]",
+      outlined: "border-[#E2DDD0] text-[#003922] bg-transparent",
       flat: "bg-[#5e665d] text-white border-transparent",
-      elevated: "bg-white text-[#003c2d] border-[#E2DDD0] shadow-md",
+      elevated: "bg-white text-[#003922] border-[#E2DDD0] shadow-md",
     },
   };
 

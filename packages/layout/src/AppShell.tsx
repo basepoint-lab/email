@@ -24,16 +24,16 @@ export function AppShell({
 }: AppShellProps) {
   return (
     <div
-      className={`min-h-screen flex flex-col justify-between selection:bg-[#BCF63C] selection:text-[#003c2d] ${
-        canvas ? "bg-[#F7F5EC] text-[#003c2d]" : "bg-white text-[#003c2d]"
+      className={`min-h-screen flex flex-col justify-between selection:bg-[#a7ff6d] selection:text-[#003922] ${
+        canvas ? "bg-[#f6ffe8] text-[#003922]" : "bg-white text-[#003922]"
       } ${className}`}
       {...props}
     >
       {/* Optional Glow Blobs */}
       {glow && (
         <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#BCF63C]/15 blur-[120px] rounded-full" />
-          <div className="absolute top-[500px] right-0 w-[500px] h-[500px] bg-[#003c2d]/5 blur-[100px] rounded-full" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#a7ff6d]/15 blur-[120px] rounded-full" />
+          <div className="absolute top-[500px] right-0 w-[500px] h-[500px] bg-[#003922]/5 blur-[100px] rounded-full" />
         </div>
       )}
 

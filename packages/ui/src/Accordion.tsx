@@ -48,13 +48,13 @@ export function Accordion({
         return (
           <div
             key={item.id || idx}
-            className="bg-white border border-[#E2DDD0] rounded-2xl overflow-hidden transition-all shadow-2xs hover:border-[#003c2d]/40"
+            className="bg-white border border-[#E2DDD0] rounded-2xl overflow-hidden transition-all shadow-2xs hover:border-[#003922]/40"
           >
             <button
               type="button"
               onClick={() => toggleIndex(idx)}
               aria-expanded={isOpen}
-              className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-mono text-xs sm:text-sm font-bold text-[#003c2d] hover:bg-[#FAF9F5] transition-colors cursor-pointer"
+              className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-mono text-xs sm:text-sm font-bold text-[#003922] hover:bg-[#FAF9F5] transition-colors cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 {item.icon && <span className="shrink-0">{item.icon}</span>}
@@ -62,7 +62,7 @@ export function Accordion({
                 {item.badge && <span className="shrink-0">{item.badge}</span>}
               </div>
               <ChevronDown
-                className={`w-4 h-4 text-[#003c2d] transition-transform duration-200 shrink-0 ${
+                className={`w-4 h-4 text-[#003922] transition-transform duration-200 shrink-0 ${
                   isOpen ? "rotate-180" : ""
                 }`}
               />

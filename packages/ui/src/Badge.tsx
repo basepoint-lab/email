@@ -90,54 +90,54 @@ function normalizeBadgeStyle(variant?: BadgeVariant, styleVariant?: BadgeVariant
 
 const badgeMatrix: Record<BadgeVariantStyle, Record<NormalizedBadgeColor, string>> = {
   elevated: {
-    primary: "bg-[#003D28] text-[#A5FF70] border border-[#00271D] shadow-2xs",
-    secondary: "bg-[#A5FF70] text-[#003D28] border border-[#8CFF50] shadow-2xs",
-    tertiary: "bg-[#8CFF50] text-[#003D28] border border-[#6FE633] shadow-2xs",
+    primary: "bg-[#003922] text-[#a7ff6d] border border-[#002516] shadow-2xs",
+    secondary: "bg-[#a7ff6d] text-[#003922] border border-[#8ef74e] shadow-2xs",
+    tertiary: "bg-[#8ef74e] text-[#003922] border border-[#6FE633] shadow-2xs",
     success: "bg-[#15803D] text-white border border-[#166534] shadow-2xs",
     warning: "bg-[#B45309] text-white border border-[#92400E] shadow-2xs",
     danger: "bg-[#B91C1C] text-white border border-[#991B1B] shadow-2xs",
     info: "bg-[#1D4ED8] text-white border border-[#1E40AF] shadow-2xs",
-    neutral: "bg-white text-[#003D28] border border-[#DDE3D9] shadow-2xs",
+    neutral: "bg-white text-[#003922] border border-[#DDE3D9] shadow-2xs",
     learn: "bg-[#1E40AF] text-[#DBEAFE] border border-[#1D4ED8] shadow-2xs",
     build: "bg-[#92400E] text-[#FEF3C7] border border-[#B45309] shadow-2xs",
     launch: "bg-[#065F46] text-[#D1FAE5] border border-[#047857] shadow-2xs",
     operations: "bg-[#334155] text-[#F1F5F9] border border-[#475569] shadow-2xs",
-    kbd: "bg-[#F6FFE9] text-[#687368] border border-[#DDE3D9] font-mono shadow-xs",
+    kbd: "bg-[#f6ffe8] text-[#687368] border border-[#DDE3D9] font-mono shadow-xs",
   },
   flat: {
-    primary: "bg-[#003D28] text-[#A5FF70] border border-transparent",
-    secondary: "bg-[#A5FF70] text-[#003D28] border border-transparent",
-    tertiary: "bg-[#8CFF50] text-[#003D28] border border-transparent",
+    primary: "bg-[#003922] text-[#a7ff6d] border border-transparent",
+    secondary: "bg-[#a7ff6d] text-[#003922] border border-transparent",
+    tertiary: "bg-[#8ef74e] text-[#003922] border border-transparent",
     success: "bg-[#15803D] text-white border border-transparent",
     warning: "bg-[#B45309] text-white border border-transparent",
     danger: "bg-[#B91C1C] text-white border border-transparent",
     info: "bg-[#1D4ED8] text-white border border-transparent",
-    neutral: "bg-[#F6FFE9] text-[#003D28] border border-transparent",
+    neutral: "bg-[#f6ffe8] text-[#003922] border border-transparent",
     learn: "bg-[#1E40AF] text-[#DBEAFE] border border-transparent",
     build: "bg-[#92400E] text-[#FEF3C7] border border-transparent",
     launch: "bg-[#065F46] text-[#D1FAE5] border border-transparent",
     operations: "bg-[#334155] text-[#F1F5F9] border border-transparent",
-    kbd: "bg-[#F6FFE9] text-[#687368] border border-[#DDE3D9]",
+    kbd: "bg-[#f6ffe8] text-[#687368] border border-[#DDE3D9]",
   },
   tonal: {
-    primary: "bg-[#003D28]/10 text-[#003D28] border border-[#003D28]/15",
-    secondary: "bg-[#A5FF70]/35 text-[#003D28] border border-[#A5FF70]/50",
-    tertiary: "bg-[#8CFF50]/30 text-[#003D28] border border-[#8CFF50]/45",
+    primary: "bg-[#003922]/10 text-[#003922] border border-[#003922]/15",
+    secondary: "bg-[#a7ff6d]/35 text-[#003922] border border-[#a7ff6d]/50",
+    tertiary: "bg-[#8ef74e]/30 text-[#003922] border border-[#8ef74e]/45",
     success: "bg-[#15803D]/15 text-[#166534] border border-[#15803D]/25",
     warning: "bg-[#B45309]/15 text-[#92400E] border border-[#B45309]/25",
     danger: "bg-[#B91C1C]/15 text-[#991B1B] border border-[#B91C1C]/25",
     info: "bg-[#1D4ED8]/15 text-[#1E40AF] border border-[#1D4ED8]/25",
-    neutral: "bg-[#F6FFE9] text-[#687368] border border-[#DDE3D9]",
+    neutral: "bg-[#f6ffe8] text-[#687368] border border-[#DDE3D9]",
     learn: "bg-[#DBEAFE] text-[#1E40AF] border border-[#BFDBFE]",
     build: "bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A]",
     launch: "bg-[#D1FAE5] text-[#065F46] border border-[#A7F3D0]",
     operations: "bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0]",
-    kbd: "bg-[#F6FFE9] text-[#687368] border border-[#DDE3D9]",
+    kbd: "bg-[#f6ffe8] text-[#687368] border border-[#DDE3D9]",
   },
   outlined: {
-    primary: "bg-transparent text-[#003D28] border border-[#003D28]",
-    secondary: "bg-transparent text-[#003D28] border border-[#003D28]",
-    tertiary: "bg-transparent text-[#003D28] border border-[#003D28]",
+    primary: "bg-transparent text-[#003922] border border-[#003922]",
+    secondary: "bg-transparent text-[#003922] border border-[#003922]",
+    tertiary: "bg-transparent text-[#003922] border border-[#003922]",
     success: "bg-transparent text-[#15803D] border border-[#15803D]",
     warning: "bg-transparent text-[#B45309] border border-[#B45309]",
     danger: "bg-transparent text-[#B91C1C] border border-[#B91C1C]",
@@ -150,9 +150,9 @@ const badgeMatrix: Record<BadgeVariantStyle, Record<NormalizedBadgeColor, string
     kbd: "bg-transparent text-[#5e665d] border border-[#E2DDD0]",
   },
   text: {
-    primary: "bg-transparent text-[#003c2d] border border-transparent",
-    secondary: "bg-transparent text-[#003c2d] border border-transparent font-bold",
-    tertiary: "bg-transparent text-[#003c2d] border border-transparent font-bold",
+    primary: "bg-transparent text-[#003922] border border-transparent",
+    secondary: "bg-transparent text-[#003922] border border-transparent font-bold",
+    tertiary: "bg-transparent text-[#003922] border border-transparent font-bold",
     success: "bg-transparent text-[#10b981] border border-transparent",
     warning: "bg-transparent text-[#d97706] border border-transparent",
     danger: "bg-transparent text-[#ef4444] border border-transparent",
@@ -165,9 +165,9 @@ const badgeMatrix: Record<BadgeVariantStyle, Record<NormalizedBadgeColor, string
     kbd: "bg-transparent text-[#5e665d] border border-transparent",
   },
   plain: {
-    primary: "bg-transparent text-[#003c2d] opacity-70 border border-transparent",
-    secondary: "bg-transparent text-[#003c2d] opacity-70 border border-transparent",
-    tertiary: "bg-transparent text-[#003c2d] opacity-70 border border-transparent",
+    primary: "bg-transparent text-[#003922] opacity-70 border border-transparent",
+    secondary: "bg-transparent text-[#003922] opacity-70 border border-transparent",
+    tertiary: "bg-transparent text-[#003922] opacity-70 border border-transparent",
     success: "bg-transparent text-[#10b981] opacity-70 border border-transparent",
     warning: "bg-transparent text-[#d97706] opacity-70 border border-transparent",
     danger: "bg-transparent text-[#ef4444] opacity-70 border border-transparent",
@@ -238,9 +238,9 @@ export function Badge({
               : normalizedColor === "warning"
               ? "bg-[#f59e0b]"
               : normalizedColor === "secondary"
-              ? "bg-[#003c2d]"
+              ? "bg-[#003922]"
               : normalizedColor === "primary"
-              ? "bg-[#BCF63C]"
+              ? "bg-[#a7ff6d]"
               : "bg-[#10b981]"
           } ${pulse ? "animate-pulse" : ""}`}
         />

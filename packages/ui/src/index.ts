@@ -24,3 +24,5 @@ export * from './TestimonialCard';
 export * from './Table';
 export * from './StatCard';
 export * from './Alert';
+export * from './Logo';
+export * from './Monogram';

@@ -41,8 +41,8 @@ export function LanguageSwitcher({
               aria-label={lang.ariaLabel || `Switch to ${lang.label}`}
               className={`px-2 py-1 text-xs font-mono font-bold rounded transition-all cursor-pointer ${
                 isActive
-                  ? "bg-[#003c2d] text-[#BCF63C] shadow-xs"
-                  : "text-[#5e665d] hover:text-[#003c2d]"
+                  ? "bg-[#003922] text-[#a7ff6d] shadow-xs"
+                  : "text-[#5e665d] hover:text-[#003922]"
               }`}
             >
               {lang.label}

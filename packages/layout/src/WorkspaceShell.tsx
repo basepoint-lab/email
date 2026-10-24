@@ -119,7 +119,7 @@ export function WorkspaceShell({
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const defaultAppIcon = appIcon || (
-    <div className="w-8 h-8 rounded-lg bg-[#003c2d] text-[#BCF63C] flex items-center justify-center font-black text-sm shadow-xs shrink-0">
+    <div className="w-8 h-8 rounded-lg bg-[#003922] text-[#a7ff6d] flex items-center justify-center font-black text-sm shadow-xs shrink-0">
       <CheckCircle2 className="w-4 h-4" />
     </div>
   );
@@ -133,10 +133,10 @@ export function WorkspaceShell({
             {defaultAppIcon}
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <span className="font-black text-base tracking-tight text-[#003c2d] truncate">
+                <span className="font-black text-base tracking-tight text-[#003922] truncate">
                   {appName}
                 </span>
-                <span className="text-[#BCF63C] font-black text-lg leading-none">.</span>
+                <span className="text-[#a7ff6d] font-black text-lg leading-none">.</span>
               </div>
               <p className="text-[11px] font-mono text-[#5e665d] uppercase tracking-wider truncate">
                 {appSubtitle}
@@ -166,15 +166,15 @@ export function WorkspaceShell({
                     }}
                     className={`w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium transition-colors text-left ${
                       isActive
-                        ? "bg-[#003c2d] text-[#F7F5EC] shadow-xs"
-                        : "text-[#003c2d] hover:bg-[#F7F5EC] hover:text-[#003c2d]"
+                        ? "bg-[#003922] text-[#f6ffe8] shadow-xs"
+                        : "text-[#003922] hover:bg-[#f6ffe8] hover:text-[#003922]"
                     }`}
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
                       {item.icon && (
                         <span
                           className={`shrink-0 ${
-                            isActive ? "text-[#BCF63C]" : "text-[#5e665d]"
+                            isActive ? "text-[#a7ff6d]" : "text-[#5e665d]"
                           }`}
                         >
                           {item.icon}
@@ -187,8 +187,8 @@ export function WorkspaceShell({
                       <span
                         className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full shrink-0 ${
                           isActive
-                            ? "bg-[#BCF63C] text-[#003c2d] font-bold"
-                            : "bg-[#F7F5EC] text-[#5e665d] border border-[#E2DDD0]"
+                            ? "bg-[#a7ff6d] text-[#003922] font-bold"
+                            : "bg-[#f6ffe8] text-[#5e665d] border border-[#E2DDD0]"
                         }`}
                       >
                         {item.count}
@@ -198,8 +198,8 @@ export function WorkspaceShell({
                       <span
                         className={`text-[9px] font-mono uppercase px-1.5 py-0.5 rounded shrink-0 ${
                           isActive
-                            ? "bg-[#BCF63C] text-[#003c2d] font-bold"
-                            : "bg-[#F7F5EC] text-[#5e665d]"
+                            ? "bg-[#a7ff6d] text-[#003922] font-bold"
+                            : "bg-[#f6ffe8] text-[#5e665d]"
                         }`}
                       >
                         {item.badge}
@@ -223,7 +223,7 @@ export function WorkspaceShell({
                 <button
                   type="button"
                   onClick={onAddProject}
-                  className="p-1 rounded text-[#5e665d] hover:text-[#003c2d] hover:bg-[#F7F5EC] transition-colors"
+                  className="p-1 rounded text-[#5e665d] hover:text-[#003922] hover:bg-[#f6ffe8] transition-colors"
                   title="Add Project Track"
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -243,14 +243,14 @@ export function WorkspaceShell({
                     }}
                     className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-colors text-left ${
                       isActive
-                        ? "bg-[#F7F5EC] text-[#003c2d] font-bold border border-[#E2DDD0]"
-                        : "text-[#5e665d] hover:text-[#003c2d] hover:bg-[#F7F5EC]/60"
+                        ? "bg-[#f6ffe8] text-[#003922] font-bold border border-[#E2DDD0]"
+                        : "text-[#5e665d] hover:text-[#003922] hover:bg-[#f6ffe8]/60"
                     }`}
                   >
                     <div className="flex items-center gap-2 min-w-0">
                       <span
                         className="w-2 h-2 rounded-full shrink-0"
-                        style={{ backgroundColor: project.color || "#003c2d" }}
+                        style={{ backgroundColor: project.color || "#003922" }}
                       />
                       <span className="truncate">{project.name}</span>
                     </div>
@@ -273,7 +273,7 @@ export function WorkspaceShell({
           {currentUser ? (
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2 min-w-0">
-                <div className="w-8 h-8 rounded-full bg-[#003c2d] text-[#BCF63C] flex items-center justify-center font-bold text-xs uppercase shrink-0">
+                <div className="w-8 h-8 rounded-full bg-[#003922] text-[#a7ff6d] flex items-center justify-center font-bold text-xs uppercase shrink-0">
                   {currentUser.avatarUrl ? (
                     <img
                       src={currentUser.avatarUrl}
@@ -285,7 +285,7 @@ export function WorkspaceShell({
                   )}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs font-semibold text-[#003c2d] truncate">
+                  <p className="text-xs font-semibold text-[#003922] truncate">
                     {currentUser.name || currentUser.email}
                   </p>
                   {currentUser.role && (
@@ -309,7 +309,7 @@ export function WorkspaceShell({
           ) : (
             <div className="flex items-center justify-between text-xs text-[#5e665d]">
               <span className="font-mono text-[10px] uppercase">Basepoint Ecosystem</span>
-              <span className="w-2 h-2 rounded-full bg-[#BCF63C]" />
+              <span className="w-2 h-2 rounded-full bg-[#a7ff6d]" />
             </div>
           )}
         </div>
@@ -318,7 +318,7 @@ export function WorkspaceShell({
   );
 
   return (
-    <div className="min-h-screen bg-[#F7F5EC] flex flex-col selection:bg-[#BCF63C] selection:text-[#003c2d]">
+    <div className="min-h-screen bg-[#f6ffe8] flex flex-col selection:bg-[#a7ff6d] selection:text-[#003922]">
       {/* Optional Top Global Banner (e.g. SSO bar) */}
       {topBanner}
 
@@ -334,7 +334,7 @@ export function WorkspaceShell({
         {mobileOpen && (
           <div className="fixed inset-0 z-50 lg:hidden">
             <div
-              className="fixed inset-0 bg-[#003c2d]/60 backdrop-blur-xs transition-opacity"
+              className="fixed inset-0 bg-[#003922]/60 backdrop-blur-xs transition-opacity"
               onClick={() => setMobileOpen(false)}
             />
             <div className={`relative ${sidebarWidth} w-4/5 max-w-xs h-full z-10 shadow-2xl`}>
@@ -342,7 +342,7 @@ export function WorkspaceShell({
                 <button
                   type="button"
                   onClick={() => setMobileOpen(false)}
-                  className="p-1.5 rounded-lg bg-white/90 text-[#003c2d] hover:bg-white shadow-xs"
+                  className="p-1.5 rounded-lg bg-white/90 text-[#003922] hover:bg-white shadow-xs"
                   aria-label="Close menu"
                 >
                   <X className="w-4 h-4" />
@@ -363,7 +363,7 @@ export function WorkspaceShell({
                 <button
                   type="button"
                   onClick={() => setMobileOpen(true)}
-                  className="lg:hidden p-2 rounded-lg text-[#003c2d] hover:bg-[#F7F5EC] -ml-2"
+                  className="lg:hidden p-2 rounded-lg text-[#003922] hover:bg-[#f6ffe8] -ml-2"
                   aria-label="Open sidebar"
                 >
                   <Menu className="w-5 h-5" />
@@ -371,7 +371,7 @@ export function WorkspaceShell({
 
                 <div className="min-w-0">
                   {title && (
-                    <div className="font-black text-lg text-[#003c2d] tracking-tight leading-snug truncate">
+                    <div className="font-black text-lg text-[#003922] tracking-tight leading-snug truncate">
                       {title}
                     </div>
                   )}

@@ -37,12 +37,12 @@ export function StatsSection({
           <div className="bg-white border-2 border-[#E2DDD0] rounded-3xl p-8 sm:p-14 shadow-2xs mb-12 text-center max-w-4xl mx-auto">
             {badge && (
               <div className="inline-block mb-4">
-                <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded bg-[#003c2d] text-[#BCF63C]">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded bg-[#003922] text-[#a7ff6d]">
                   {badge}
                 </span>
               </div>
             )}
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#003c2d] tracking-tight leading-snug mb-4">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#003922] tracking-tight leading-snug mb-4">
               {narrativeTitle}
             </h2>
             {narrativeDescription && (
@@ -53,7 +53,7 @@ export function StatsSection({
 
             {/* Guarantees Row */}
             {guarantees.length > 0 && (
-              <div className="mt-8 pt-6 border-t border-[#F7F5EC] flex flex-wrap items-center justify-center gap-6 text-xs font-mono text-[#003c2d]">
+              <div className="mt-8 pt-6 border-t border-[#f6ffe8] flex flex-wrap items-center justify-center gap-6 text-xs font-mono text-[#003922]">
                 {guarantees.map((g, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
@@ -70,18 +70,18 @@ export function StatsSection({
           {stats.map((s, idx) => (
             <div
               key={idx}
-              className="bg-white border border-[#E2DDD0] rounded-2xl p-6 hover:border-[#003c2d] hover:-translate-y-0.5 hover:shadow-md transition-all flex flex-col justify-between"
+              className="bg-white border border-[#E2DDD0] rounded-2xl p-6 hover:border-[#003922] hover:-translate-y-0.5 hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
                 {s.icon && (
-                  <div className="w-8 h-8 rounded-lg bg-[#FAF9F5] text-[#003c2d] flex items-center justify-center mb-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#FAF9F5] text-[#003922] flex items-center justify-center mb-3">
                     {s.icon}
                   </div>
                 )}
-                <div className="text-3xl sm:text-4xl font-black text-[#003c2d] font-mono tracking-tight mb-1">
+                <div className="text-3xl sm:text-4xl font-black text-[#003922] font-mono tracking-tight mb-1">
                   {s.value}
                 </div>
-                <div className="text-xs font-bold text-[#003c2d] mb-1">{s.label}</div>
+                <div className="text-xs font-bold text-[#003922] mb-1">{s.label}</div>
               </div>
               {s.subtext && <div className="text-[10px] font-mono text-[#5e665d] mt-2">{s.subtext}</div>}
             </div>

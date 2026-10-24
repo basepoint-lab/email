@@ -29,10 +29,10 @@ export function StatCard({
   ...props
 }: StatCardProps) {
   const variantStyles = {
-    surface: "bg-white border-[#E2DDD0] text-[#003c2d]",
-    primary: "bg-[#003c2d] border-[#00271d] text-white",
-    tonal: "bg-[#F7F5EC] border-[#E2DDD0] text-[#003c2d]",
-    outline: "bg-transparent border-[#E2DDD0] text-[#003c2d]",
+    surface: "bg-white border-[#E2DDD0] text-[#003922]",
+    primary: "bg-[#003922] border-[#002516] text-white",
+    tonal: "bg-[#f6ffe8] border-[#E2DDD0] text-[#003922]",
+    outline: "bg-transparent border-[#E2DDD0] text-[#003922]",
   }[variant];
 
   const isDark = variant === "primary";
@@ -53,7 +53,7 @@ export function StatCard({
         {icon && (
           <div
             className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-              isDark ? "bg-white/10 text-[#BCF63C]" : "bg-[#F7F5EC] text-[#003c2d] border border-[#E2DDD0]"
+              isDark ? "bg-white/10 text-[#a7ff6d]" : "bg-[#f6ffe8] text-[#003922] border border-[#E2DDD0]"
             }`}
           >
             {icon}

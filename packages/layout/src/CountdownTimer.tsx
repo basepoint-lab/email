@@ -91,12 +91,12 @@ export function CountdownTimer({
     <div className={`w-full max-w-3xl mx-auto my-8 ${className}`}>
       {/* Readiness Tag */}
       <div className="flex items-center justify-between mb-3 px-2">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#003c2d]/70 uppercase tracking-widest font-semibold">
-          <Clock className="w-3.5 h-3.5 text-[#003c2d]" />
+        <div className="flex items-center gap-2 text-xs font-mono text-[#003922]/70 uppercase tracking-widest font-semibold">
+          <Clock className="w-3.5 h-3.5 text-[#003922]" />
           <span>{mergedLabels.title}</span>
         </div>
-        <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#003c2d] bg-[#BCF63C] px-2.5 py-0.5 rounded">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#003c2d] animate-pulse" />
+        <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#003922] bg-[#a7ff6d] px-2.5 py-0.5 rounded">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#003922] animate-pulse" />
           <span>{mergedLabels.badge}</span>
         </div>
       </div>
@@ -106,15 +106,15 @@ export function CountdownTimer({
         {units.map((unit, idx) => (
           <div
             key={idx}
-            className="relative bg-white border border-[#E2DDD0] rounded-xl p-4 sm:p-6 text-center shadow-xs hover:border-[#003c2d]/30 transition-all group overflow-hidden"
+            className="relative bg-white border border-[#E2DDD0] rounded-xl p-4 sm:p-6 text-center shadow-xs hover:border-[#003922]/30 transition-all group overflow-hidden"
           >
             {/* Top Accent line */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-[#003c2d] group-hover:bg-[#BCF63C] transition-colors" />
+            <div className="absolute top-0 left-0 right-0 h-1 bg-[#003922] group-hover:bg-[#a7ff6d] transition-colors" />
 
-            <div className="text-3xl sm:text-5xl font-extrabold text-[#003c2d] tracking-tight font-mono mb-1">
+            <div className="text-3xl sm:text-5xl font-extrabold text-[#003922] tracking-tight font-mono mb-1">
               {unit.value}
             </div>
-            <div className="text-[11px] sm:text-xs font-mono tracking-widest font-bold text-[#003c2d]/80 uppercase">
+            <div className="text-[11px] sm:text-xs font-mono tracking-widest font-bold text-[#003922]/80 uppercase">
               {unit.label}
             </div>
           </div>
@@ -123,16 +123,16 @@ export function CountdownTimer({
 
       {/* Progress Bar & Milestone Status */}
       <div className="mt-4 p-3.5 bg-white border border-[#E2DDD0] rounded-xl flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-        <div className="flex items-center gap-2 text-[#003c2d] font-mono font-medium">
-          <ShieldCheck className="w-4 h-4 text-[#003c2d] shrink-0" />
+        <div className="flex items-center gap-2 text-[#003922] font-mono font-medium">
+          <ShieldCheck className="w-4 h-4 text-[#003922] shrink-0" />
           <span>
             {mergedLabels.milestone}{" "}
             <strong className="font-bold">{mergedLabels.milestoneDetail}</strong>
           </span>
         </div>
-        <div className="w-full sm:w-48 bg-[#F7F5EC] rounded-full h-2.5 border border-[#E2DDD0] overflow-hidden">
+        <div className="w-full sm:w-48 bg-[#f6ffe8] rounded-full h-2.5 border border-[#E2DDD0] overflow-hidden">
           <div
-            className="bg-[#003c2d] h-2.5 rounded-full transition-all duration-500"
+            className="bg-[#003922] h-2.5 rounded-full transition-all duration-500"
             style={{ width: `${progressPercent}%` }}
           />
         </div>

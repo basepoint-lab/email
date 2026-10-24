@@ -26,16 +26,16 @@ export function CommunityCard({
 }: CommunityCardProps) {
   return (
     <div
-      className={`relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#00271d] via-[#003c2d] to-[#044c3b] border-2 border-[#BCF63C]/30 p-6 sm:p-8 lg:p-10 text-white shadow-xl flex flex-col justify-between ${className}`}
+      className={`relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#002516] via-[#003922] to-[#044c3b] border-2 border-[#a7ff6d]/30 p-6 sm:p-8 lg:p-10 text-white shadow-xl flex flex-col justify-between ${className}`}
     >
       {/* Decorative background glow */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#25D366]/15 blur-[80px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-52 h-52 bg-[#BCF63C]/10 blur-[60px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-52 h-52 bg-[#a7ff6d]/10 blur-[60px] rounded-full pointer-events-none" />
 
       {/* Top Content */}
       <div className="relative z-10 mb-8">
         {badge && (
-          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#BCF63C] bg-white/10 border border-white/15 px-3 py-1 rounded-full inline-block mb-3">
+          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#a7ff6d] bg-white/10 border border-white/15 px-3 py-1 rounded-full inline-block mb-3">
             {badge}
           </span>
         )}
@@ -50,13 +50,13 @@ export function CommunityCard({
         <div className="flex flex-wrap gap-2.5 mt-6 text-xs font-mono text-white/90">
           {memberCountText && (
             <div className="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-lg border border-white/10">
-              <Users className="w-3.5 h-3.5 text-[#BCF63C] shrink-0" />
+              <Users className="w-3.5 h-3.5 text-[#a7ff6d] shrink-0" />
               <span>{memberCountText}</span>
             </div>
           )}
           {liveUpdateText && (
             <div className="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-lg border border-white/10">
-              <Zap className="w-3.5 h-3.5 text-[#BCF63C] shrink-0" />
+              <Zap className="w-3.5 h-3.5 text-[#a7ff6d] shrink-0" />
               <span>{liveUpdateText}</span>
             </div>
           )}
@@ -69,7 +69,7 @@ export function CommunityCard({
           href={joinUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full py-3.5 px-5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-[#00271d] font-mono text-xs sm:text-sm uppercase tracking-wider font-extrabold transition-all shadow-md hover:shadow-xl flex items-center justify-center gap-2.5 group cursor-pointer"
+          className="w-full py-3.5 px-5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-[#002516] font-mono text-xs sm:text-sm uppercase tracking-wider font-extrabold transition-all shadow-md hover:shadow-xl flex items-center justify-center gap-2.5 group cursor-pointer"
         >
           <span>{buttonText}</span>
           <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

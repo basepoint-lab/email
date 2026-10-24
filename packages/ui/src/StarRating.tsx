@@ -36,7 +36,7 @@ export function StarRating({
 
   return (
     <div
-      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E2DDD0] text-xs font-mono font-bold text-[#003c2d] shadow-2xs ${
+      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E2DDD0] text-xs font-mono font-bold text-[#003922] shadow-2xs ${
         interactive ? "cursor-pointer" : ""
       } ${className}`}
       {...props}

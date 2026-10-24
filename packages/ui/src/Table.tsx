@@ -34,7 +34,7 @@ export interface TableHeaderProps extends React.HTMLAttributes<HTMLTableSectionE
 export function TableHeader({ className = "", children, ...props }: TableHeaderProps) {
   return (
     <thead
-      className={`bg-[#F7F5EC] border-b border-[#E2DDD0] font-mono text-[11px] font-bold text-[#5e665d] uppercase tracking-wider ${className}`}
+      className={`bg-[#f6ffe8] border-b border-[#E2DDD0] font-mono text-[11px] font-bold text-[#5e665d] uppercase tracking-wider ${className}`}
       {...props}
     >
       {children}
@@ -60,7 +60,7 @@ export function TableRow({ selected = false, className = "", children, ...props 
   return (
     <tr
       className={`transition-colors hover:bg-[#FAF9F5]/80 ${
-        selected ? "bg-[#BCF63C]/10 font-medium" : ""
+        selected ? "bg-[#a7ff6d]/10 font-medium" : ""
       } ${className}`}
       {...props}
     >
@@ -83,7 +83,7 @@ export interface TableCellProps extends React.TdHTMLAttributes<HTMLTableCellElem
 
 export function TableCell({ className = "", children, ...props }: TableCellProps) {
   return (
-    <td className={`p-3.5 sm:px-4 sm:py-3 text-[#003c2d] ${className}`} {...props}>
+    <td className={`p-3.5 sm:px-4 sm:py-3 text-[#003922] ${className}`} {...props}>
       {children}
     </td>
   );

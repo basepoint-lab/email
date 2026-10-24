@@ -1,4 +1,5 @@
 import React from "react";
+import { Logo } from "@basepoint-lab/ui";
 
 export interface CenteredHeaderProps extends React.HTMLAttributes<HTMLElement> {
   logoHref?: string;
@@ -30,7 +31,7 @@ export function CenteredHeader({
     <header
       className={`border-b border-[#E2DDD0] px-4 sm:px-8 py-3.5 transition-all z-50 ${
         sticky ? "sticky top-0" : "relative"
-      } ${blur ? "bg-[#F7F5EC]/90 backdrop-blur-md" : "bg-[#F7F5EC]"} ${className}`}
+      } ${blur ? "bg-[#f6ffe8]/90 backdrop-blur-md" : "bg-[#f6ffe8]"} ${className}`}
       {...props}
     >
       <div className={`${maxWidthClass} mx-auto grid grid-cols-3 items-center`}>
@@ -43,10 +44,10 @@ export function CenteredHeader({
         <div className="flex items-center justify-center">
           <a
             href={logoHref}
-            className="text-xl sm:text-2xl font-black text-[#003c2d] tracking-tight hover:opacity-90 transition-opacity select-none"
+            className="hover:opacity-90 transition-opacity select-none"
             aria-label="Basepoint Home"
           >
-            basepoint<span className="text-[#BCF63C] font-mono">.</span>
+            <Logo variant="primary" className="h-7 w-auto" />
           </a>
         </div>
 

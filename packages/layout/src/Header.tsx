@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Logo } from "@basepoint-lab/ui";
 import { CenteredHeader, CenteredHeaderProps } from "./CenteredHeader";
 import { AppHeader, AppHeaderProps } from "./AppHeader";
 import { MinimalHeader, MinimalHeaderProps } from "./MinimalHeader";
@@ -116,13 +117,14 @@ export function Header({
         <div className="flex items-center gap-3">
           <a
             href={logoHref}
-            className="flex items-center gap-1.5 text-xl sm:text-2xl font-black text-[#003c2d] tracking-tight hover:opacity-90 select-none"
+            className="flex items-center gap-1.5 hover:opacity-90 transition-opacity select-none"
+            aria-label="Basepoint Home"
           >
-            basepoint<span className="text-[#BCF63C]">.</span>
+            <Logo variant="primary" className="h-7 w-auto" />
           </a>
 
           {monogram && (
-            <span className="hidden sm:inline-flex items-center justify-center font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-[#003c2d] text-[#BCF63C] uppercase tracking-wider">
+            <span className="hidden sm:inline-flex items-center justify-center font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-[#003922] text-[#a7ff6d] uppercase tracking-wider">
               {monogram}
             </span>
           )}
@@ -146,13 +148,13 @@ export function Header({
                 rel={item.external ? "noreferrer" : undefined}
                 className={`px-3 py-1.5 text-xs font-mono font-bold rounded-lg transition-colors flex items-center gap-1 ${
                   item.active
-                    ? "text-[#003c2d] bg-[#F7F5EC] border border-[#E2DDD0]"
-                    : "text-[#5e665d] hover:text-[#003c2d] hover:bg-[#FAF9F5]"
+                    ? "text-[#003922] bg-[#f6ffe8] border border-[#E2DDD0]"
+                    : "text-[#5e665d] hover:text-[#003922] hover:bg-[#FAF9F5]"
                 }`}
               >
                 <span>{item.label}</span>
                 {item.badge && (
-                  <span className="text-[9px] px-1.5 py-0.2 bg-[#BCF63C] text-[#003c2d] rounded">
+                  <span className="text-[9px] px-1.5 py-0.2 bg-[#a7ff6d] text-[#003922] rounded">
                     {item.badge}
                   </span>
                 )}
@@ -171,7 +173,7 @@ export function Header({
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              className="md:hidden p-2 rounded-lg text-[#003c2d] hover:bg-[#F7F5EC] transition-colors"
+              className="md:hidden p-2 rounded-lg text-[#003922] hover:bg-[#f6ffe8] transition-colors"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -191,8 +193,8 @@ export function Header({
               onClick={() => setMobileMenuOpen(false)}
               className={`block px-3 py-2 text-xs font-mono font-bold rounded-lg ${
                 item.active
-                  ? "bg-[#003c2d] text-[#BCF63C]"
-                  : "text-[#003c2d] hover:bg-[#F7F5EC]"
+                  ? "bg-[#003922] text-[#a7ff6d]"
+                  : "text-[#003922] hover:bg-[#f6ffe8]"
               }`}
             >
               <div className="flex items-center justify-between">

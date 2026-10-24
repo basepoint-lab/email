@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowLeft } from "lucide-react";
+import { Logo } from "@basepoint-lab/ui";
 
 export interface MinimalHeaderProps extends React.HTMLAttributes<HTMLElement> {
   logoHref?: string;
@@ -44,7 +45,7 @@ export function MinimalHeader({
                   onBack();
                 }
               }}
-              className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#5e665d] hover:text-[#003c2d] transition-colors p-1 rounded-md hover:bg-[#F7F5EC]"
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#5e665d] hover:text-[#003922] transition-colors p-1 rounded-md hover:bg-[#f6ffe8]"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>{backLabel}</span>
@@ -53,9 +54,10 @@ export function MinimalHeader({
 
           <a
             href={logoHref}
-            className="flex items-center gap-1.5 text-xl sm:text-2xl font-black text-[#003c2d] tracking-tight hover:opacity-90 select-none"
+            className="flex items-center gap-1.5 hover:opacity-90 transition-opacity select-none"
+            aria-label="Basepoint Home"
           >
-            basepoint<span className="text-[#BCF63C]">.</span>
+            <Logo variant="primary" className="h-7 w-auto" />
           </a>
         </div>
 

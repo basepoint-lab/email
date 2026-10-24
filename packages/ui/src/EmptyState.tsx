@@ -20,10 +20,10 @@ export function EmptyState({
     <div
       className={`bg-white border border-[#E2DDD0] border-dashed rounded-2xl p-8 sm:p-12 text-center flex flex-col items-center justify-center ${className}`}
     >
-      <div className="w-12 h-12 rounded-2xl bg-[#F7F5EC] border border-[#E2DDD0] flex items-center justify-center text-[#003c2d] mb-3">
+      <div className="w-12 h-12 rounded-2xl bg-[#f6ffe8] border border-[#E2DDD0] flex items-center justify-center text-[#003922] mb-3">
         {icon || <Inbox className="w-6 h-6 text-[#5e665d]" />}
       </div>
-      <h4 className="text-sm font-extrabold text-[#003c2d] mb-1">{title}</h4>
+      <h4 className="text-sm font-extrabold text-[#003922] mb-1">{title}</h4>
       <p className="text-xs text-[#5e665d] max-w-sm mb-4 leading-relaxed">
         {description}
       </p>

@@ -12,10 +12,10 @@ export interface SectionProps extends Omit<React.HTMLAttributes<HTMLElement>, "t
 }
 
 const bgClasses = {
-  canvas: "bg-[#F7F5EC] text-[#003c2d]",
-  white: "bg-white text-[#003c2d]",
-  pine: "bg-[#00271d] text-white",
-  subtle: "bg-[#FAF9F5] text-[#003c2d]",
+  canvas: "bg-[#f6ffe8] text-[#003922]",
+  white: "bg-white text-[#003922]",
+  pine: "bg-[#002516] text-white",
+  subtle: "bg-[#FAF9F5] text-[#003922]",
 };
 
 export function Section({
@@ -48,8 +48,8 @@ export function Section({
                   <span
                     className={`inline-block font-mono text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
                       isDark
-                        ? "bg-[#BCF63C] text-[#003c2d]"
-                        : "bg-[#003c2d] text-[#BCF63C]"
+                        ? "bg-[#a7ff6d] text-[#003922]"
+                        : "bg-[#003922] text-[#a7ff6d]"
                     }`}
                   >
                     {badge}
@@ -59,7 +59,7 @@ export function Section({
               {title && (
                 <h2
                   className={`text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight ${
-                    isDark ? "text-white" : "text-[#003c2d]"
+                    isDark ? "text-white" : "text-[#003922]"
                   }`}
                 >
                   {title}

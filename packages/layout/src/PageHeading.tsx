@@ -42,12 +42,12 @@ export interface PageHeadingProps {
 }
 
 const badgeVariantStyles: Record<HeadingBadgeVariant, string> = {
-  pine: "bg-[#003c2d] text-[#BCF63C] border border-[#00281e]",
-  citron: "bg-[#BCF63C] text-[#003c2d] border border-[#aef026]",
-  spring: "bg-[#A3FB60] text-[#003c2d] border border-[#8ceb44]",
-  dark: "bg-[#1A2421] text-[#BCF63C] border border-[#263531]",
-  subtle: "bg-white text-[#003c2d] border border-[#E2DDD0]",
-  outline: "bg-transparent text-[#003c2d] border border-[#003c2d]",
+  pine: "bg-[#003922] text-[#a7ff6d] border border-[#002516]",
+  citron: "bg-[#a7ff6d] text-[#003922] border border-[#aef026]",
+  spring: "bg-[#8ef74e] text-[#003922] border border-[#8ceb44]",
+  dark: "bg-[#1A2421] text-[#a7ff6d] border border-[#263531]",
+  subtle: "bg-white text-[#003922] border border-[#E2DDD0]",
+  outline: "bg-transparent text-[#003922] border border-[#003922]",
 };
 
 const sizeStyles: Record<HeadingSize, string> = {
@@ -103,11 +103,11 @@ export function PageHeading({
           )}
 
           <Component
-            className={`${sizeStyles[size]} text-[#003c2d] tracking-tight text-balance`}
+            className={`${sizeStyles[size]} text-[#003922] tracking-tight text-balance`}
           >
             {title}
             {titleAccent && (
-              <span className="text-[#BCF63C] ml-0.5 select-none">{titleAccent}</span>
+              <span className="text-[#a7ff6d] ml-0.5 select-none">{titleAccent}</span>
             )}
           </Component>
 

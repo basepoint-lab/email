@@ -105,8 +105,8 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#F7F5EC] text-[#003c2d]">
-        <Loader2 className="w-8 h-8 animate-spin text-[#003c2d] mb-4" />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#f6ffe8] text-[#003922]">
+        <Loader2 className="w-8 h-8 animate-spin text-[#003922] mb-4" />
         <p className="text-sm font-mono text-[#5e665d]">
           Authenticating Basepoint Mail identity & corporate mailbox bindings...
         </p>
@@ -121,7 +121,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   // Enforce mandatory corporate mailbox assignment check
   if (hasCheckedAssignment && !assignedAccount) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#F7F5EC] px-4 py-12 text-[#1c1d1a]">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#f6ffe8] px-4 py-12 text-[#1c1d1a]">
         <div className="w-full max-w-lg bg-white border border-[#E2DDD0] rounded-3xl p-8 shadow-xl text-center space-y-6">
           <div className="w-16 h-16 mx-auto bg-amber-50 rounded-2xl flex items-center justify-center border border-amber-200">
             <ShieldAlert className="w-8 h-8 text-amber-600" />
@@ -131,18 +131,18 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
             <span className="text-[10px] font-black tracking-widest uppercase px-3 py-1 bg-amber-100 text-amber-800 rounded-full font-mono">
               Access Restricted
             </span>
-            <h1 className="text-2xl font-black text-[#003c2d] tracking-tight">
+            <h1 className="text-2xl font-black text-[#003922] tracking-tight">
               Corporate Mailbox Not Assigned
             </h1>
             <p className="text-sm text-[#5e665d] leading-relaxed">
               Your authenticated identity{" "}
-              <strong className="text-[#003c2d] font-mono">{auth.user.email}</strong> is valid,
+              <strong className="text-[#003922] font-mono">{auth.user.email}</strong> is valid,
               but does not have an active corporate mailbox (e.g. <span className="font-mono">@basepoint.ma</span>) assigned.
             </p>
           </div>
 
-          <div className="bg-[#F7F5EC] rounded-2xl p-4 text-left border border-[#E2DDD0] space-y-2 text-xs">
-            <div className="font-bold text-[#003c2d] flex items-center gap-2">
+          <div className="bg-[#f6ffe8] rounded-2xl p-4 text-left border border-[#E2DDD0] space-y-2 text-xs">
+            <div className="font-bold text-[#003922] flex items-center gap-2">
               <MailCheck className="w-4 h-4 text-emerald-600" />
               <span>How to gain access:</span>
             </div>
@@ -160,7 +160,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
           <div className="flex flex-col gap-2 pt-2">
             <a
               href="https://users.basepoint.ma"
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#003c2d] text-white rounded-xl text-sm font-bold hover:bg-[#00281e] transition-colors shadow-sm"
+              className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#003922] text-white rounded-xl text-sm font-bold hover:bg-[#002516] transition-colors shadow-sm"
             >
               <span>Assign Mailbox in User Management</span>
               <ExternalLink className="w-4 h-4" />
@@ -168,7 +168,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
 
             <button
               onClick={refetchAssignment}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-[#F7F5EC] text-[#003c2d] border border-[#E2DDD0] rounded-xl text-sm font-semibold hover:bg-[#eae6d8] transition-colors"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-[#f6ffe8] text-[#003922] border border-[#E2DDD0] rounded-xl text-sm font-semibold hover:bg-[#eae6d8] transition-colors"
             >
               <span>Check Assignment Again</span>
               <ArrowRight className="w-4 h-4" />

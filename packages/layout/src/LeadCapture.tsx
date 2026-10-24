@@ -59,15 +59,15 @@ export function LeadCapture({
   };
 
   return (
-    <section className={`relative w-full bg-[#00271d] text-[#F7F5EC] py-16 sm:py-24 overflow-hidden ${className}`}>
+    <section className={`relative w-full bg-[#002516] text-[#f6ffe8] py-16 sm:py-24 overflow-hidden ${className}`}>
       {/* Background Ambience Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#BCF63C]/10 blur-[130px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#a7ff6d]/10 blur-[130px] rounded-full pointer-events-none" />
 
       <Container size="lg" className="relative z-10 text-center">
         {/* Pre-title Badge */}
         {badge && (
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#003c2d] border border-[#BCF63C]/30 text-xs font-mono font-bold text-[#BCF63C] mb-4 shadow-xs">
-            <Bell className="w-3.5 h-3.5 text-[#BCF63C]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#003922] border border-[#a7ff6d]/30 text-xs font-mono font-bold text-[#a7ff6d] mb-4 shadow-xs">
+            <Bell className="w-3.5 h-3.5 text-[#a7ff6d]" />
             <span>{badge}</span>
           </div>
         )}
@@ -83,8 +83,8 @@ export function LeadCapture({
         </p>
 
         {isSuccess ? (
-          <div className="max-w-md mx-auto p-6 rounded-2xl bg-[#003c2d] border border-[#BCF63C]/40 text-center animate-in fade-in zoom-in-95">
-            <CheckCircle2 className="w-10 h-10 text-[#BCF63C] mx-auto mb-3" />
+          <div className="max-w-md mx-auto p-6 rounded-2xl bg-[#003922] border border-[#a7ff6d]/40 text-center animate-in fade-in zoom-in-95">
+            <CheckCircle2 className="w-10 h-10 text-[#a7ff6d] mx-auto mb-3" />
             <h3 className="text-base font-bold text-white mb-1">Subscription Confirmed</h3>
             <p className="text-xs text-white/80 font-mono">
               Welcome aboard. You are now connected to the Basepoint ecosystem dispatch.
@@ -102,7 +102,7 @@ export function LeadCapture({
                     onClick={() => setSelectedRole(r.id)}
                     className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
                       selectedRole === r.id
-                        ? "bg-[#BCF63C] text-[#00271d] font-bold shadow-xs"
+                        ? "bg-[#a7ff6d] text-[#002516] font-bold shadow-xs"
                         : "text-white/80 hover:text-white"
                     }`}
                   >
@@ -122,14 +122,14 @@ export function LeadCapture({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={placeholder}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/50 text-xs font-mono focus:outline-none focus:border-[#BCF63C] focus:ring-1 focus:ring-[#BCF63C] transition-all"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/50 text-xs font-mono focus:outline-none focus:border-[#a7ff6d] focus:ring-1 focus:ring-[#a7ff6d] transition-all"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="py-3 px-5 rounded-xl bg-[#BCF63C] hover:bg-[#a6db32] text-[#00271d] font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-60 shadow-md hover:shadow-lg shrink-0"
+                className="py-3 px-5 rounded-xl bg-[#a7ff6d] hover:bg-[#8ef74e] text-[#002516] font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-60 shadow-md hover:shadow-lg shrink-0"
               >
                 <span>{isSubmitting ? "Subscribing..." : buttonText}</span>
                 <ArrowRight className="w-4 h-4" />

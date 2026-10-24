@@ -46,7 +46,7 @@ export function Modal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-[#003c2d]/60 backdrop-blur-xs transition-opacity cursor-pointer"
+        className="fixed inset-0 bg-[#003922]/60 backdrop-blur-xs transition-opacity cursor-pointer"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -56,12 +56,12 @@ export function Modal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
-        className={`relative bg-white border-2 border-[#003c2d] rounded-2xl w-full ${maxWidthStyles[maxWidth]} shadow-2xl overflow-hidden z-10 transition-transform`}
+        className={`relative bg-white border-2 border-[#003922] rounded-2xl w-full ${maxWidthStyles[maxWidth]} shadow-2xl overflow-hidden z-10 transition-transform`}
       >
         {/* Header */}
-        <div className="p-5 border-b border-[#F7F5EC] flex justify-between items-start">
+        <div className="p-5 border-b border-[#f6ffe8] flex justify-between items-start">
           <div>
-            <h3 id="modal-title" className="text-lg font-extrabold text-[#003c2d]">
+            <h3 id="modal-title" className="text-lg font-extrabold text-[#003922]">
               {title}
             </h3>
             {description && (
@@ -72,7 +72,7 @@ export function Modal({
             type="button"
             onClick={onClose}
             aria-label="Close dialog"
-            className="w-7 h-7 rounded-lg bg-[#F7F5EC] text-[#5e665d] hover:text-[#003c2d] hover:bg-[#E2DDD0] flex items-center justify-center transition-colors cursor-pointer"
+            className="w-7 h-7 rounded-lg bg-[#f6ffe8] text-[#5e665d] hover:text-[#003922] hover:bg-[#E2DDD0] flex items-center justify-center transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -83,7 +83,7 @@ export function Modal({
 
         {/* Footer */}
         {footer && (
-          <div className="p-4 bg-[#FAF9F5] border-t border-[#F7F5EC] flex items-center justify-end gap-2.5">
+          <div className="p-4 bg-[#FAF9F5] border-t border-[#f6ffe8] flex items-center justify-end gap-2.5">
             {footer}
           </div>
         )}

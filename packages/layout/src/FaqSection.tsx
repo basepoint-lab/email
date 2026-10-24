@@ -50,14 +50,14 @@ export function FaqSection({
         <div className={visualContent ? "lg:col-span-7" : "lg:col-span-12 max-w-4xl mx-auto w-full"}>
           <div className="mb-8 text-center lg:text-left">
             {badge && (
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 backdrop-blur-xs border border-[#E2DDD0] text-xs font-mono font-bold text-[#003c2d] shadow-2xs">
-                <HelpCircle className="w-3.5 h-3.5 text-[#003c2d]" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 backdrop-blur-xs border border-[#E2DDD0] text-xs font-mono font-bold text-[#003922] shadow-2xs">
+                <HelpCircle className="w-3.5 h-3.5 text-[#003922]" />
                 <span>{badge}</span>
               </div>
             )}
 
             {title && (
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#003c2d] mt-3 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#003922] mt-3 tracking-tight">
                 {title}
               </h2>
             )}
@@ -75,16 +75,16 @@ export function FaqSection({
               return (
                 <div
                   key={idx}
-                  className="bg-white/80 backdrop-blur-sm border border-[#E2DDD0] rounded-2xl overflow-hidden transition-all shadow-2xs hover:border-[#003c2d]/40"
+                  className="bg-white/80 backdrop-blur-sm border border-[#E2DDD0] rounded-2xl overflow-hidden transition-all shadow-2xs hover:border-[#003922]/40"
                 >
                   <button
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? null : idx)}
-                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-mono text-xs sm:text-sm font-bold text-[#003c2d] hover:bg-[#FAF9F5] transition-colors cursor-pointer"
+                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-mono text-xs sm:text-sm font-bold text-[#003922] hover:bg-[#FAF9F5] transition-colors cursor-pointer"
                   >
                     <span>{item.question}</span>
                     <ChevronDown
-                      className={`w-4 h-4 text-[#003c2d] transition-transform duration-200 shrink-0 ${
+                      className={`w-4 h-4 text-[#003922] transition-transform duration-200 shrink-0 ${
                         isOpen ? "rotate-180" : ""
                       }`}
                     />
@@ -101,9 +101,9 @@ export function FaqSection({
           </div>
 
           {supportCta && (
-            <div className="mt-8 p-6 rounded-2xl bg-[#003c2d] text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
+            <div className="mt-8 p-6 rounded-2xl bg-[#003922] text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
               <div>
-                <h4 className="font-mono font-bold text-sm text-[#BCF63C]">{supportCta.label}</h4>
+                <h4 className="font-mono font-bold text-sm text-[#a7ff6d]">{supportCta.label}</h4>
                 {supportCta.description && (
                   <p className="text-xs text-white/80 mt-1">{supportCta.description}</p>
                 )}
@@ -111,7 +111,7 @@ export function FaqSection({
               <a
                 href={supportCta.href || "#"}
                 onClick={supportCta.onClick}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#BCF63C] text-[#003c2d] font-mono font-bold text-xs hover:bg-[#A3FB60] transition-colors cursor-pointer shrink-0"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#a7ff6d] text-[#003922] font-mono font-bold text-xs hover:bg-[#8ef74e] transition-colors cursor-pointer shrink-0"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
                 <span>{supportCta.buttonText}</span>

@@ -34,8 +34,8 @@ Import typed design constants directly into your application code:
 ```typescript
 import { colors, typography, tokens } from '@basepoint-lab/tokens';
 
-console.log(colors.brand.pine.DEFAULT); // '#003c2d'
-console.log(colors.brand.lime.DEFAULT); // '#BCF63C'
+console.log(colors.brand.pine.DEFAULT); // '#003922'
+console.log(colors.brand.lime.DEFAULT); // '#a7ff6d'
 console.log(typography.fontFamilies.sans); // 'League Spartan', ...
 ```
 
@@ -85,13 +85,13 @@ module.exports = {
 
 | Token Name | Hex | Preview / Role |
 | :--- | :--- | :--- |
-| `brand.pine.DEFAULT` | `#003c2d` | Primary deep pine green |
-| `brand.pine.deep` | `#00271d` | Ultra-deep container contrast |
-| `brand.lime.DEFAULT` | `#BCF63C` | Vibrant citron accent |
-| `brand.spring.DEFAULT` | `#A3FB60` | Fresh spring accent |
-| `surface.canvas` | `#F7F5EC` | Warm tactile canvas background |
+| `brand.pine.DEFAULT` | `#003922` | Primary deep pine green |
+| `brand.pine.deep` | `#002516` | Ultra-deep container contrast |
+| `brand.lime.DEFAULT` | `#a7ff6d` | Vibrant citron accent |
+| `brand.spring.DEFAULT` | `#8ef74e` | Fresh spring accent |
+| `surface.canvas` | `#f6ffe8` | Warm tactile cream light canvas |
 | `surface.card` | `#FFFFFF` | Clean white card surface |
-| `surface.subtle` | `#E2DDD0` | Warm subtle dividing border |
+| `surface.subtle` | `#DDE3D9` | Warm subtle dividing border |
 | `text.muted` | `#5e665d` | Secondary muted body text |
 
 ---

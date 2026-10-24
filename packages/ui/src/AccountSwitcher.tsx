@@ -34,9 +34,9 @@ export function AccountSwitcher({
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
-        className="inline-flex items-center gap-2.5 px-3.5 py-2 bg-white border border-[#E2DDD0] rounded-lg text-xs font-mono text-[#003c2d] hover:border-[#003c2d] transition-colors shadow-xs cursor-pointer"
+        className="inline-flex items-center gap-2.5 px-3.5 py-2 bg-white border border-[#E2DDD0] rounded-lg text-xs font-mono text-[#003922] hover:border-[#003922] transition-colors shadow-xs cursor-pointer"
       >
-        <Building2 className="w-4 h-4 text-[#003c2d] shrink-0" />
+        <Building2 className="w-4 h-4 text-[#003922] shrink-0" />
         <div className="text-left">
           <span className="block font-bold">{currentAccount.name}</span>
           <span className="block text-[10px] text-[#5e665d]">{currentAccount.code}</span>
@@ -73,8 +73,8 @@ export function AccountSwitcher({
                     }}
                     className={`w-full text-left px-3 py-2.5 rounded-lg text-xs flex items-center justify-between transition-colors cursor-pointer ${
                       isSelected
-                        ? "bg-[#003c2d] text-[#F7F5EC]"
-                        : "hover:bg-[#F7F5EC] text-[#003c2d]"
+                        ? "bg-[#003922] text-[#f6ffe8]"
+                        : "hover:bg-[#f6ffe8] text-[#003922]"
                     }`}
                   >
                     <div>
@@ -84,8 +84,8 @@ export function AccountSwitcher({
                           <span
                             className={`text-[9px] font-mono px-1.5 py-0.2 rounded font-bold ${
                               isSelected
-                                ? "bg-[#BCF63C] text-[#003c2d]"
-                                : "bg-[#003c2d] text-white"
+                                ? "bg-[#a7ff6d] text-[#003922]"
+                                : "bg-[#003922] text-white"
                             }`}
                           >
                             ROOT
@@ -102,7 +102,7 @@ export function AccountSwitcher({
                         </div>
                       )}
                     </div>
-                    {isSelected && <Check className="w-4 h-4 text-[#BCF63C] shrink-0 ml-2" />}
+                    {isSelected && <Check className="w-4 h-4 text-[#a7ff6d] shrink-0 ml-2" />}
                   </button>
                 );
               })}

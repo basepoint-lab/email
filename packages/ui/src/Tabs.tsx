@@ -34,8 +34,8 @@ export function Tabs({
               onClick={() => onChange(tab.id)}
               className={`pb-3 font-mono text-xs font-bold transition-all relative flex items-center gap-2 cursor-pointer ${
                 isActive
-                  ? "text-[#003c2d]"
-                  : "text-[#5e665d] hover:text-[#003c2d]"
+                  ? "text-[#003922]"
+                  : "text-[#5e665d] hover:text-[#003922]"
               }`}
             >
               {tab.icon && <span className="shrink-0">{tab.icon}</span>}
@@ -44,15 +44,15 @@ export function Tabs({
                 <span
                   className={`text-[10px] px-1.5 py-0.5 rounded ${
                     isActive
-                      ? "bg-[#BCF63C] text-[#003c2d]"
-                      : "bg-[#F7F5EC] text-[#5e665d]"
+                      ? "bg-[#a7ff6d] text-[#003922]"
+                      : "bg-[#f6ffe8] text-[#5e665d]"
                   }`}
                 >
                   {tab.badge}
                 </span>
               )}
               {isActive && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#003c2d]" />
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#003922]" />
               )}
             </button>
           );
@@ -74,8 +74,8 @@ export function Tabs({
             onClick={() => onChange(tab.id)}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
               isActive
-                ? "bg-[#003c2d] text-[#BCF63C] shadow-xs"
-                : "text-[#5e665d] hover:text-[#003c2d] hover:bg-white/50"
+                ? "bg-[#003922] text-[#a7ff6d] shadow-xs"
+                : "text-[#5e665d] hover:text-[#003922] hover:bg-white/50"
             }`}
           >
             {tab.icon && <span className="shrink-0">{tab.icon}</span>}
@@ -84,8 +84,8 @@ export function Tabs({
               <span
                 className={`text-[10px] px-1.5 py-0.5 rounded ${
                   isActive
-                    ? "bg-[#BCF63C] text-[#003c2d]"
-                    : "bg-[#F7F5EC] text-[#5e665d]"
+                    ? "bg-[#a7ff6d] text-[#003922]"
+                    : "bg-[#f6ffe8] text-[#5e665d]"
                 }`}
               >
                 {tab.badge}

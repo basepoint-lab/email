@@ -1,4 +1,5 @@
 import React from "react";
+import { Monogram } from "@basepoint-lab/ui";
 
 export interface AppHeaderProps extends React.HTMLAttributes<HTMLElement> {
   appName: string;
@@ -45,29 +46,27 @@ export function AppHeader({
         className={`${maxWidthClass} mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6`}
       >
         <div className="flex items-start sm:items-center gap-3.5">
-          {appIcon && (
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#003D28] text-[#A5FF70] flex items-center justify-center font-black shadow-xs shrink-0">
-              {appIcon}
-            </div>
-          )}
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#003922] text-[#a7ff6d] flex items-center justify-center font-black shadow-xs shrink-0 p-2">
+            {appIcon || <Monogram variant="lime" className="w-full h-full" />}
+          </div>
 
           <div>
             {(category || badge) && (
               <div className="inline-flex items-center gap-2 mb-1.5 flex-wrap">
                 {category && (
-                  <span className="font-mono font-bold text-[11px] sm:text-xs uppercase tracking-wider text-[#003D28]">
+                  <span className="font-mono font-bold text-[11px] sm:text-xs uppercase tracking-wider text-[#003922]">
                     {category}
                   </span>
                 )}
                 {badge && (
-                  <span className="bg-[#A5FF70] text-[#003D28] text-[10px] font-mono font-bold px-2 py-0.5 rounded-lg shadow-2xs">
+                  <span className="bg-[#a7ff6d] text-[#003922] text-[10px] font-mono font-bold px-2 py-0.5 rounded-lg shadow-2xs">
                     {badge}
                   </span>
                 )}
               </div>
             )}
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#003D28]">
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#003922]">
               {appName}
             </h1>
 

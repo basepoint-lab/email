@@ -37,14 +37,14 @@ export function PricingCard({
     <div
       className={`relative rounded-2xl p-6 sm:p-8 transition-all flex flex-col justify-between ${
         plan.isPopular
-          ? "bg-[#00271d] text-white border-2 border-[#BCF63C] shadow-2xl scale-[1.02]"
-          : "bg-white text-[#003c2d] border border-[#E2DDD0] shadow-2xs hover:border-[#003c2d]"
+          ? "bg-[#002516] text-white border-2 border-[#a7ff6d] shadow-2xl scale-[1.02]"
+          : "bg-white text-[#003922] border border-[#E2DDD0] shadow-2xs hover:border-[#003922]"
       } ${className}`}
     >
       {/* Popular Badge */}
       {plan.isPopular && (
         <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-          <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-[#BCF63C] text-[#003c2d] shadow-sm">
+          <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-[#a7ff6d] text-[#003922] shadow-sm">
             <Sparkles className="w-3 h-3" />
             <span>{plan.badge || "RECOMMENDED"}</span>
           </span>
@@ -77,7 +77,7 @@ export function PricingCard({
             <li key={i} className="flex items-start gap-2.5">
               <span
                 className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                  plan.isPopular ? "bg-[#BCF63C] text-[#003c2d]" : "bg-[#003c2d] text-[#BCF63C]"
+                  plan.isPopular ? "bg-[#a7ff6d] text-[#003922]" : "bg-[#003922] text-[#a7ff6d]"
                 }`}
               >
                 <Check className="w-2.5 h-2.5 stroke-[3]" />
@@ -95,8 +95,8 @@ export function PricingCard({
           onClick={() => onSelect?.(plan.id)}
           className={`w-full py-3 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
             plan.isPopular
-              ? "bg-[#BCF63C] hover:bg-[#a6db32] text-[#003c2d] shadow-md hover:shadow-lg"
-              : "bg-[#003c2d] hover:bg-black text-[#F7F5EC] shadow-xs hover:shadow-md"
+              ? "bg-[#a7ff6d] hover:bg-[#8ef74e] text-[#003922] shadow-md hover:shadow-lg"
+              : "bg-[#003922] hover:bg-black text-[#f6ffe8] shadow-xs hover:shadow-md"
           }`}
         >
           {plan.ctaText || "Select Plan"}
@@ -120,13 +120,13 @@ export function PricingSection({
         <div className="text-center max-w-2xl mx-auto mb-14">
           {badge && (
             <div className="inline-block mb-3">
-              <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#003c2d] text-[#BCF63C]">
+              <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#003922] text-[#a7ff6d]">
                 {badge}
               </span>
             </div>
           )}
           {title && (
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#003c2d]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#003922]">
               {title}
             </h2>
           )}

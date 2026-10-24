@@ -1,6 +1,6 @@
 {
   "name": "@basepoint-lab/tokens",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Basepoint design tokens, color scales, typography, CSS variables, and Tailwind theme presets",
   "author": "Basepoint Engineering <team@basepoint.ma>",
   "license": "MIT",

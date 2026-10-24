@@ -45,8 +45,8 @@ export function HeroSection({
       {/* Background Glow Blobs */}
       {glow && (
         <>
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#BCF63C]/15 blur-[120px] rounded-full pointer-events-none -z-10" />
-          <div className="absolute top-[300px] right-0 w-[450px] h-[450px] bg-[#003c2d]/5 blur-[100px] rounded-full pointer-events-none -z-10" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#a7ff6d]/15 blur-[120px] rounded-full pointer-events-none -z-10" />
+          <div className="absolute top-[300px] right-0 w-[450px] h-[450px] bg-[#003922]/5 blur-[100px] rounded-full pointer-events-none -z-10" />
         </>
       )}
 
@@ -57,13 +57,13 @@ export function HeroSection({
       >
         <div className={centered ? "max-w-3xl" : "lg:col-span-7"}>
           {badge && (
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E2DDD0] text-xs font-mono font-bold text-[#003c2d] mb-6 shadow-2xs">
-              {badgeIcon || <span className="w-2 h-2 rounded-full bg-[#003c2d] animate-pulse" />}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E2DDD0] text-xs font-mono font-bold text-[#003922] mb-6 shadow-2xs">
+              {badgeIcon || <span className="w-2 h-2 rounded-full bg-[#003922] animate-pulse" />}
               <span>{badge}</span>
             </div>
           )}
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#003c2d] tracking-tight leading-[1.08]">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#003922] tracking-tight leading-[1.08]">
             {title}
           </h1>
 
@@ -83,10 +83,10 @@ export function HeroSection({
                 <a
                   href={primaryCta.href}
                   onClick={primaryCta.onClick}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#003c2d] hover:bg-[#00271d] text-[#BCF63C] font-mono font-bold text-xs sm:text-sm tracking-wide shadow-md hover:scale-105 transition-all cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#003922] hover:bg-[#002516] text-[#a7ff6d] font-mono font-bold text-xs sm:text-sm tracking-wide shadow-md hover:scale-105 transition-all cursor-pointer"
                 >
                   <span>{primaryCta.label}</span>
-                  {primaryCta.icon || <ArrowRight className="w-4 h-4 text-[#BCF63C]" />}
+                  {primaryCta.icon || <ArrowRight className="w-4 h-4 text-[#a7ff6d]" />}
                 </a>
               )}
 
@@ -94,7 +94,7 @@ export function HeroSection({
                 <a
                   href={secondaryCta.href}
                   onClick={secondaryCta.onClick}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-[#F7F5EC] text-[#003c2d] font-mono font-bold text-xs sm:text-sm tracking-wide border border-[#E2DDD0] shadow-xs hover:border-[#003c2d]/40 transition-all cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-[#f6ffe8] text-[#003922] font-mono font-bold text-xs sm:text-sm tracking-wide border border-[#E2DDD0] shadow-xs hover:border-[#003922]/40 transition-all cursor-pointer"
                 >
                   <span>{secondaryCta.label}</span>
                   {secondaryCta.icon}

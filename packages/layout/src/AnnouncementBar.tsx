@@ -32,10 +32,10 @@ export function AnnouncementBar({
   if (dismissed) return null;
 
   const variantStyles = {
-    pine: "bg-[#003c2d] text-[#F7F5EC] border-b border-[#00271d]",
-    citron: "bg-[#BCF63C] text-[#003c2d] border-b border-[#a9e42c]",
-    canvas: "bg-[#F7F5EC] text-[#003c2d] border-b border-[#E2DDD0]",
-    white: "bg-white text-[#003c2d] border-b border-[#E2DDD0]",
+    pine: "bg-[#003922] text-[#f6ffe8] border-b border-[#002516]",
+    citron: "bg-[#a7ff6d] text-[#003922] border-b border-[#a9e42c]",
+    canvas: "bg-[#f6ffe8] text-[#003922] border-b border-[#E2DDD0]",
+    white: "bg-white text-[#003922] border-b border-[#E2DDD0]",
   }[variant];
 
   const handleDismiss = () => {
@@ -53,7 +53,7 @@ export function AnnouncementBar({
           {statusDot && (
             <span
               className={`w-2 h-2 rounded-full shrink-0 ${
-                variant === "pine" ? "bg-[#BCF63C]" : "bg-[#003c2d]"
+                variant === "pine" ? "bg-[#a7ff6d]" : "bg-[#003922]"
               } ${pulse ? "animate-ping" : ""}`}
             />
           )}
@@ -62,8 +62,8 @@ export function AnnouncementBar({
             <span
               className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider shrink-0 ${
                 variant === "pine"
-                  ? "bg-[#BCF63C] text-[#003c2d]"
-                  : "bg-[#003c2d] text-[#BCF63C]"
+                  ? "bg-[#a7ff6d] text-[#003922]"
+                  : "bg-[#003922] text-[#a7ff6d]"
               }`}
             >
               {badge}
@@ -76,7 +76,7 @@ export function AnnouncementBar({
             <a
               href={href}
               className={`inline-flex items-center gap-1 font-bold underline underline-offset-2 hover:opacity-80 transition-opacity ${
-                variant === "pine" ? "text-[#BCF63C]" : "text-[#003c2d]"
+                variant === "pine" ? "text-[#a7ff6d]" : "text-[#003922]"
               }`}
             >
               <span>{linkText || "Learn more"}</span>

@@ -32,7 +32,7 @@ export function TestimonialCard({
 
   return (
     <div
-      className={`bg-white border border-[#E2DDD0] rounded-2xl p-6 sm:p-7 shadow-2xs hover:border-[#003c2d] hover:-translate-y-0.5 hover:shadow-md transition-all flex flex-col justify-between ${className}`}
+      className={`bg-white border border-[#E2DDD0] rounded-2xl p-6 sm:p-7 shadow-2xs hover:border-[#003922] hover:-translate-y-0.5 hover:shadow-md transition-all flex flex-col justify-between ${className}`}
       {...props}
     >
       <div>
@@ -51,27 +51,27 @@ export function TestimonialCard({
 
         {/* Quote Content */}
         <div className="relative mb-6">
-          <Quote className="w-6 h-6 text-[#003c2d]/10 absolute -top-2 -left-1 pointer-events-none" />
-          <p className="text-xs sm:text-sm text-[#003c2d] leading-relaxed relative z-10 font-medium">
+          <Quote className="w-6 h-6 text-[#003922]/10 absolute -top-2 -left-1 pointer-events-none" />
+          <p className="text-xs sm:text-sm text-[#003922] leading-relaxed relative z-10 font-medium">
             "{quote}"
           </p>
         </div>
       </div>
 
       {/* Author and Impact Metric Footer */}
-      <div className="pt-4 border-t border-[#F7F5EC] flex items-center justify-between gap-3">
+      <div className="pt-4 border-t border-[#f6ffe8] flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           {avatarSrc ? (
             <img src={avatarSrc} alt={name} className="w-9 h-9 rounded-full object-cover shrink-0" />
           ) : (
-            <div className="w-9 h-9 rounded-full bg-[#003c2d] text-[#BCF63C] font-mono font-bold text-xs flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-full bg-[#003922] text-[#a7ff6d] font-mono font-bold text-xs flex items-center justify-center shrink-0">
               {initials}
             </div>
           )}
 
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="text-xs font-bold text-[#003c2d]">{name}</span>
+              <span className="text-xs font-bold text-[#003922]">{name}</span>
               {verified && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />}
             </div>
             {(company || program) && (
@@ -83,7 +83,7 @@ export function TestimonialCard({
         </div>
 
         {stat && (
-          <span className="hidden sm:inline-block font-mono text-[10px] font-bold text-[#003c2d] bg-[#BCF63C]/40 px-2 py-0.5 rounded shrink-0">
+          <span className="hidden sm:inline-block font-mono text-[10px] font-bold text-[#003922] bg-[#a7ff6d]/40 px-2 py-0.5 rounded shrink-0">
             {stat}
           </span>
         )}

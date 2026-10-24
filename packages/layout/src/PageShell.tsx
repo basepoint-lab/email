@@ -12,7 +12,7 @@ export interface PageShellProps extends React.HTMLAttributes<HTMLDivElement> {
 const gridClasses: Record<GridVariant, string> = {
   none: "",
   pine: "bg-grid-pine",
-  dark: "bg-[#00271d] text-white bg-grid-dark",
+  dark: "bg-[#002516] text-white bg-grid-dark",
 };
 
 export function PageShell({
@@ -28,7 +28,7 @@ export function PageShell({
   return (
     <div
       className={`min-h-screen flex flex-col ${
-        isDark ? "bg-[#00271d] text-white" : "bg-[#F7F5EC] text-[#003c2d]"
+        isDark ? "bg-[#002516] text-white" : "bg-[#f6ffe8] text-[#003922]"
       } font-sans ${gridClasses[grid]} ${className}`}
       {...props}
     >

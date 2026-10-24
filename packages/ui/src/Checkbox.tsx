@@ -40,13 +40,13 @@ export function Checkbox({
         <div
           className={`w-4 h-4 rounded-md border flex items-center justify-center transition-all ${
             checked || indeterminate
-              ? "bg-[#003c2d] border-[#003c2d] text-[#BCF63C] shadow-xs"
-              : "bg-white border-[#E2DDD0] hover:border-[#003c2d]"
+              ? "bg-[#003922] border-[#003922] text-[#a7ff6d] shadow-xs"
+              : "bg-white border-[#E2DDD0] hover:border-[#003922]"
           }`}
         >
           {checked && <Check className="w-3 h-3 stroke-[3]" />}
           {indeterminate && !checked && (
-            <span className="w-2 h-0.5 bg-[#BCF63C] rounded-full" />
+            <span className="w-2 h-0.5 bg-[#a7ff6d] rounded-full" />
           )}
         </div>
       </div>
@@ -56,7 +56,7 @@ export function Checkbox({
           {label && (
             <span
               className={`text-xs font-semibold leading-tight ${
-                checked ? "text-[#003c2d]" : "text-[#1f2923]"
+                checked ? "text-[#003922]" : "text-[#1f2923]"
               }`}
             >
               {label}
