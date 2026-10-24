@@ -1,6 +1,6 @@
 import React from "react";
 import { ArrowLeft } from "lucide-react";
-import { Logo } from "@basepoint-lab/ui";
+import { Logo } from "./Logo";
 
 export interface MinimalHeaderProps extends React.HTMLAttributes<HTMLElement> {
   logoHref?: string;

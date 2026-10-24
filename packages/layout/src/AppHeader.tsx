@@ -1,5 +1,5 @@
 import React from "react";
-import { Monogram } from "@basepoint-lab/ui";
+import { Monogram } from "./Monogram";
 
 export interface AppHeaderProps extends React.HTMLAttributes<HTMLElement> {
   appName: string;

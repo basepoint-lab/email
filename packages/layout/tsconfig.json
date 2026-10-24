@@ -13,16 +13,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "baseUrl": ".",
-    "paths": {
-      "@basepoint-lab/tokens": ["../tokens/dist/index.d.ts"],
-      "@basepoint-lab/ui": ["../ui/dist/index.d.ts"],
-      "react": ["../../portal/node_modules/@types/react"],
-      "react/jsx-runtime": ["../../portal/node_modules/@types/react/jsx-runtime"],
-      "react-dom": ["../../portal/node_modules/@types/react-dom"],
-      "lucide-react": ["../../portal/node_modules/lucide-react"]
-    }
+    "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "tests"]

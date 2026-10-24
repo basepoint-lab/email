@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
-import { Logo } from "@basepoint-lab/ui";
+import { Logo } from "./Logo";
 import { CenteredHeader, CenteredHeaderProps } from "./CenteredHeader";
 import { AppHeader, AppHeaderProps } from "./AppHeader";
 import { MinimalHeader, MinimalHeaderProps } from "./MinimalHeader";

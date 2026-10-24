@@ -1,5 +1,5 @@
 import React from "react";
-import { Logo } from "@basepoint-lab/ui";
+import { Logo } from "./Logo";
 
 export interface CenteredHeaderProps extends React.HTMLAttributes<HTMLElement> {
   logoHref?: string;

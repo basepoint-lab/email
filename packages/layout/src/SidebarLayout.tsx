@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Logo } from "@basepoint-lab/ui";
+import { Logo } from "./Logo";
 
 export interface SidebarLayoutProps {
   sidebar: React.ReactNode;
